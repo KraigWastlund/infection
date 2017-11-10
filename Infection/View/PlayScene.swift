@@ -26,8 +26,8 @@ class PlayScene: SKScene {
     override func sceneDidLoad() {
         super.sceneDidLoad()
         
-        let info = PlayerInfo(uuid: UUID(), name: "bob", position: CGPoint(x: 50, y: 50), velocity: CGVector(dx: 0, dy: 0))
-        player = PlayerNode(size: CGSize(width: 0.1, height: 0.1), playerInfo: info)
+        let info = PlayerInfo(uuid: UUID(), name: "bob", position: CGPoint(x: 500, y: 500), velocity: CGVector(dx: 0, dy: 0))
+        player = PlayerNode(size: CGSize(width: 50, height: 50), playerInfo: info)
         guard let _ = player else { return }
         
         let level = Level(width: 10, height: 10)
@@ -38,6 +38,7 @@ class PlayScene: SKScene {
         }
         
         self.addChild(player)
+        player.position = player.playerInfo.position
         
         //        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight))
         //        swipeRight.direction = .right
