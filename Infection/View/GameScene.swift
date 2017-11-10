@@ -65,13 +65,8 @@ class GameScene: SKScene {
     
     func touchDown(atPoint pos : CGPoint) {
         if self.startButton.contains(pos) {
-            self.startButton.color = .brown
+            self.startButton.alpha = 0.5
         }
-//        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-//            n.position = pos
-//            n.strokeColor = SKColor.green
-//            self.addChild(n)
-//        }
     }
     
     func touchMoved(toPoint pos : CGPoint) {
@@ -83,18 +78,11 @@ class GameScene: SKScene {
     }
     
     func touchUp(atPoint pos : CGPoint) {
-//        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-//            n.position = pos
-//            n.strokeColor = SKColor.red
-//            self.addChild(n)
-//        }
+        self.startButton.alpha = 1.0
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first
-        if self.startButton.contains(touch?.location(in: self.startButton)) {
-            print("this")
-        }
+        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
