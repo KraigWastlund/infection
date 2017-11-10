@@ -26,11 +26,11 @@ struct ConnectionManager {
         return PeerKit.session?.connectedPeers as [MCPeerID]? ?? []
     }
     
-    static var otherPlayers: [Player] {
-        return peers.map { Player(peer: $0) }
+    static var otherPlayers: [PlayerInfo] {
+        return peers.map { PlayerInfo(peer: $0) }
     }
 
-    static var allPlayers: [Player] { return [Player.getMe()] + otherPlayers }
+    static var allPlayers: [PlayerInfo] { return [PlayerInfo.getMe()] + otherPlayers }
     
     // MARK: Start
     

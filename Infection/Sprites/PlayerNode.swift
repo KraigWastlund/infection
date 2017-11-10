@@ -9,10 +9,10 @@
 import SpriteKit
 
 class PlayerNode: SKSpriteNode {
-    
     var isInfected = false
+    var playerInfo: PlayerInfo!
     
-    convenience init(width: CGFloat, height: CGFloat) {
+    convenience init(width: CGFloat, height: CGFloat, playerInfo: PlayerInfo) {
         let texture = SKTexture(imageNamed: "Player")
         
         self.init(texture: texture, color: UIColor.white, size: CGSize(width: width, height: height))
@@ -24,6 +24,6 @@ class PlayerNode: SKSpriteNode {
         self.physicsBody?.isDynamic = true
         self.physicsBody?.allowsRotation = true
         self.physicsBody?.affectedByGravity = false
-        self.name = "Player"
+        self.name = playerInfo.name
     }
 }

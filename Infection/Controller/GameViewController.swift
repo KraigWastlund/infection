@@ -85,15 +85,24 @@ class GameViewController: UIViewController {
     
     @IBAction func sendAction(_ sender: Any) {
         self.player.position = CGPoint(x: self.player.position.x + 10, y: self.player.position.y + 10)
-        ConnectionManager.sendEvent(.position, object: ["player": Player(uuid: UUID(),name: "hello! :)", position: self.player.position)])
+        ConnectionManager.sendEvent(.position, object: ["player": PlayerInfo(uuid: UUID(),name: "hello! :)", position: self.player.position)])
+        ConnectionManager.sendEvent(.startGame, object: ["level": SessionInfo(uuid: UUID(), level: Level(width: 100, height: 100))])
     }
     
     // MARK: Multipeer
     
     fileprivate func setupMultipeerEventHandlers() {
+        ConnectionManager.onEvent(.startGame) { [unowned self] peer, object in
+            let dict = object as! [String: NSData]
+            let testObject = SessionInfo(mpcSerialized: dict["level"]! as Data)
+            print(testObject.uuid)
+            print(testObject.level.width)
+            print(testObject.level.height)
+        }
+        
         ConnectionManager.onEvent(.position) { [unowned self] peer, object in
             let dict = object as! [String: NSData]
-            let testObject = Player(mpcSerialized: dict["player"]! as Data)
+            let testObject = PlayerInfo(mpcSerialized: dict["player"]! as Data)
             print(testObject.uuid)
             print(testObject.name)
             print(testObject.position)
@@ -108,6 +117,10 @@ class GameViewController: UIViewController {
                 print(player.displayName)
             }
             self.player.position = testObject.position
+        }
+        
+        ConnectionManager.onEvent(.endGame) { [unowned self] peer, object in
+            print("endGame")
         }
     }
 }
