@@ -45,24 +45,27 @@ class PlayScene: SKScene {
         
         self.addChild(player)
         player.position = player.playerInfo.position
-        
-        //        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight))
-        //        swipeRight.direction = .right
-        //        view.addGestureRecognizer(swipeRight)
-        //
-        //        let swipeLeft:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedLeft))
-        //        swipeLeft.direction = .left
-        //        view.addGestureRecognizer(swipeLeft)
-        //
-        //        let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedUp))
-        //        swipeUp.direction = .up
-        //        view.addGestureRecognizer(swipeUp)
-        //
-        //        let swipeDown:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown))
-        //        swipeDown.direction = .down
-        //        view.addGestureRecognizer(swipeDown)
     }
     
+    override func didMove(to view: SKView) {
+        super.didMove(to: view)
+        
+        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight))
+        swipeRight.direction = .right
+        view.addGestureRecognizer(swipeRight)
+
+        let swipeLeft:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedLeft))
+        swipeLeft.direction = .left
+        view.addGestureRecognizer(swipeLeft)
+
+        let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedUp))
+        swipeUp.direction = .up
+        view.addGestureRecognizer(swipeUp)
+
+        let swipeDown:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown))
+        swipeDown.direction = .down
+        view.addGestureRecognizer(swipeDown)
+    }
     
     func touchDown(atPoint pos : CGPoint) {
         run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
@@ -131,20 +134,20 @@ class PlayScene: SKScene {
 }
 
 extension PlayScene {
-    //    func swipedRight(_ sender:UISwipeGestureRecognizer){
-    //        player.physicsBody?.applyForce(CGVector(dx: PLAYER_SPEED,dy: 0))
-    //    }
-    //
-    //    func swipedLeft(_ sender:UISwipeGestureRecognizer){
-    //        player.physicsBody?.applyForce(CGVector(dx: -PLAYER_SPEED,dy: 0))
-    //    }
-    //
-    //    func swipedUp(_ sender:UISwipeGestureRecognizer){
-    //        player.physicsBody?.applyForce(CGVector(dx: 0,dy: PLAYER_SPEED))
-    //    }
-    //
-    //    func swipedDown(_ sender:UISwipeGestureRecognizer){
-    //        player.physicsBody?.applyForce(CGVector(dx: 0,dy: -PLAYER_SPEED))
-    //    }
+    @objc func swipedRight(_ sender:UISwipeGestureRecognizer){
+        player.physicsBody?.applyForce(CGVector(dx: PLAYER_SPEED,dy: 0))
+    }
+
+    @objc func swipedLeft(_ sender:UISwipeGestureRecognizer){
+        player.physicsBody?.applyForce(CGVector(dx: -PLAYER_SPEED,dy: 0))
+    }
+
+    @objc func swipedUp(_ sender:UISwipeGestureRecognizer){
+        player.physicsBody?.applyForce(CGVector(dx: 0,dy: PLAYER_SPEED))
+    }
+
+    @objc func swipedDown(_ sender:UISwipeGestureRecognizer){
+        player.physicsBody?.applyForce(CGVector(dx: 0,dy: -PLAYER_SPEED))
+    }
 }
 
