@@ -26,15 +26,11 @@ class MainScene: SKScene {
         if let tLabel = self.titleLabel, let sLabel = startLabel, let sButton = startButton {
             tLabel.alpha = 0.0
             tLabel.run(SKAction.fadeIn(withDuration: 3.0))
-            tLabel.run(SKAction.scale(by: 2.0, duration: 3.0))
+            tLabel.run(SKAction.scale(by: 3.0, duration: 3.0))
             sLabel.alpha = 0.0
             sLabel.run(SKAction.fadeIn(withDuration: 3.0))
             sButton.alpha = 0.0
             sButton.run(SKAction.fadeIn(withDuration: 3.0))
-            
-            tLabel.isUserInteractionEnabled = false
-            sLabel.isUserInteractionEnabled = false
-            sButton.isUserInteractionEnabled = false
         }
     }
     
@@ -77,7 +73,7 @@ class MainScene: SKScene {
     }
     
     private func startButtonWasPressed() {
-        let playScene = PlayScene()
+        let playScene = PlayScene(size: self.size)
         playScene.view?.showsFPS = true
         playScene.view?.showsNodeCount = true
         self.view?.presentScene(playScene)

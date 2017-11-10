@@ -27,7 +27,7 @@ class PlayScene: SKScene {
         super.sceneDidLoad()
         
         let info = PlayerInfo(uuid: UUID(), name: "bob", position: CGPoint(x: 50, y: 50), velocity: CGVector(dx: 0, dy: 0))
-        player = PlayerNode(size: CGSize(width: 50, height: 50), playerInfo: info)
+        player = PlayerNode(size: CGSize(width: 0.1, height: 0.1), playerInfo: info)
         guard let _ = player else { return }
         
         let level = Level(width: 10, height: 10)
