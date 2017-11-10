@@ -18,6 +18,10 @@
 		64F5C46A1FB52B2A004F5B25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64F5C4691FB52B2A004F5B25 /* Assets.xcassets */; };
 		64F5C4781FB52B2A004F5B25 /* InfectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F5C4771FB52B2A004F5B25 /* InfectionTests.swift */; };
 		64F5C4831FB52B2A004F5B25 /* InfectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F5C4821FB52B2A004F5B25 /* InfectionUITests.swift */; };
+		780353321FB5FCF60083B3D3 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780353311FB5FCF60083B3D3 /* ConnectionManager.swift */; };
+		780353341FB602D90083B3D3 /* MPCAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780353331FB602D90083B3D3 /* MPCAttributedString.swift */; };
+		788FC1BC1FB619C000EE24DB /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788FC1BB1FB619C000EE24DB /* Player.swift */; };
+		788FC1BE1FB619F200EE24DB /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788FC1BD1FB619F200EE24DB /* Session.swift */; };
 		B62ED9E41FB605CF00C801BB /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62ED9E31FB605CF00C801BB /* Level.swift */; };
 		B62ED9E71FB6065700C801BB /* WallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62ED9E61FB6065700C801BB /* WallNode.swift */; };
 		B62ED9E91FB6070600C801BB /* PlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62ED9E81FB6070600C801BB /* PlayerNode.swift */; };
@@ -65,6 +69,10 @@
 		64F5C47E1FB52B2A004F5B25 /* InfectionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InfectionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		64F5C4821FB52B2A004F5B25 /* InfectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfectionUITests.swift; sourceTree = "<group>"; };
 		64F5C4841FB52B2A004F5B25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		780353311FB5FCF60083B3D3 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
+		780353331FB602D90083B3D3 /* MPCAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPCAttributedString.swift; sourceTree = "<group>"; };
+		788FC1BB1FB619C000EE24DB /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		788FC1BD1FB619F200EE24DB /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		9702913736FAECC6C1F14F05 /* Pods-InfectionUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfectionUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfectionUITests/Pods-InfectionUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B62ED9E31FB605CF00C801BB /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		B62ED9E61FB6065700C801BB /* WallNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallNode.swift; sourceTree = "<group>"; };
@@ -164,6 +172,7 @@
 				B62ED9E51FB6061E00C801BB /* Sprites */,
 				B62ED9E21FB6045600C801BB /* Model */,
 				64F5C45C1FB52B2A004F5B25 /* AppDelegate.swift */,
+				788FC1BA1FB6199400EE24DB /* PvPNetwork */,
 				64F5C4691FB52B2A004F5B25 /* Assets.xcassets */,
 				64F5C46E1FB52B2A004F5B25 /* Info.plist */,
 			);
@@ -188,10 +197,21 @@
 			path = InfectionUITests;
 			sourceTree = "<group>";
 		};
+		788FC1BA1FB6199400EE24DB /* PvPNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				780353311FB5FCF60083B3D3 /* ConnectionManager.swift */,
+				780353331FB602D90083B3D3 /* MPCAttributedString.swift */,
+			);
+			path = PvPNetwork;
+			sourceTree = "<group>";
+		};
 		B62ED9E21FB6045600C801BB /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				B62ED9E31FB605CF00C801BB /* Level.swift */,
+				788FC1BB1FB619C000EE24DB /* Player.swift */,
+				788FC1BD1FB619F200EE24DB /* Session.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -477,9 +497,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Infection/Pods-Infection-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/PeerKit/PeerKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PeerKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -517,6 +540,10 @@
 				B62ED9E41FB605CF00C801BB /* Level.swift in Sources */,
 				64D5A0441FB6092900F89947 /* GameViewController.swift in Sources */,
 				64D5A0511FB6096500F89947 /* GameScene.swift in Sources */,
+				780353321FB5FCF60083B3D3 /* ConnectionManager.swift in Sources */,
+				788FC1BE1FB619F200EE24DB /* Session.swift in Sources */,
+				780353341FB602D90083B3D3 /* MPCAttributedString.swift in Sources */,
+				788FC1BC1FB619C000EE24DB /* Player.swift in Sources */,
 				64F5C45D1FB52B2A004F5B25 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -685,7 +712,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3W3QAKTRFB;
+				DEVELOPMENT_TEAM = 6J53SQMFPY;
 				INFOPLIST_FILE = Infection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kraigwastlund.Infection;
@@ -701,7 +728,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3W3QAKTRFB;
+				DEVELOPMENT_TEAM = 6J53SQMFPY;
 				INFOPLIST_FILE = Infection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kraigwastlund.Infection;
