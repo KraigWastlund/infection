@@ -386,8 +386,11 @@
 <<<<<<< HEAD
 =======
 				784754F81FB63EEC007FD5F6 /* pew-pew-lei.caf in Resources */,
+<<<<<<< HEAD
 				64D5A0531FB62AA100F89947 /* PlayScene.sks in Resources */,
 >>>>>>> 1522c4cbfe3cf4a1b18d28dab8ddcc7c768d3c7b
+=======
+>>>>>>> 4a702be99440e4c310668d254110674de82526f0
 				64F5C46A1FB52B2A004F5B25 /* Assets.xcassets in Resources */,
 				64D5A04F1FB6096500F89947 /* Main.storyboard in Resources */,
 				64D5A0501FB6096500F89947 /* MainScene.sks in Resources */,

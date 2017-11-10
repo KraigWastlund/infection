@@ -22,16 +22,28 @@ class PlayScene: SKScene {
     private var player: PlayerNode!
     private var lastUpdateTime : TimeInterval = 0
     
+    private var player: PlayerNode!
+    
     override func sceneDidLoad() {
         super.sceneDidLoad()
         
+<<<<<<< HEAD
         let level = Level(width: 10, height: 10)
         level.renderLevel(mapSize: self.size)
+=======
+        let info = PlayerInfo(uuid: UUID(), name: "bob", position: CGPoint(x: 50, y: 50), velocity: CGVector(dx: 0, dy: 0))
+        player = PlayerNode(size: CGSize(width: 0.1, height: 0.1), playerInfo: info)
+        guard let _ = player else { return }
+>>>>>>> 4a702be99440e4c310668d254110674de82526f0
         
+        let level = Level(width: 10, height: 10)
+        level.renderLevel(mapSize: self.size)
+
         for wall in level.walls {
             self.addChild(wall)
         }
         
+<<<<<<< HEAD
 //        let texture = SKTexture(imageNamed: "player")
 //        let node = SKSpriteNode(texture: texture, color: UIColor.white, size: CGSize(width: 0.2, height: 0.2))
 //        node.position = CGPoint(x: 0.2, y: 0.2)
@@ -41,6 +53,8 @@ class PlayScene: SKScene {
         player = PlayerNode(width: 0.05, height: 0.05, playerInfo: playerInfo)
         player.position = CGPoint(x: 0.15, y: 0.15)
         player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 0.05, height: 0.05))
+=======
+>>>>>>> 4a702be99440e4c310668d254110674de82526f0
         self.addChild(player)
         
         //        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight))
