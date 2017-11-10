@@ -15,7 +15,7 @@ protocol MPCSerializable {
 }
 
 enum Event: String {
-    case startGame, position, endGame
+    case startGame, playerInfo, actionInfo, endGame
 }
 
 struct ConnectionManager {

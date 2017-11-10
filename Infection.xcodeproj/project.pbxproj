@@ -22,6 +22,9 @@
 		64F5C4831FB52B2A004F5B25 /* InfectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F5C4821FB52B2A004F5B25 /* InfectionUITests.swift */; };
 		780353321FB5FCF60083B3D3 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780353311FB5FCF60083B3D3 /* ConnectionManager.swift */; };
 		780353341FB602D90083B3D3 /* MPCAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780353331FB602D90083B3D3 /* MPCAttributedString.swift */; };
+		784754F81FB63EEC007FD5F6 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = 784754F71FB63EEC007FD5F6 /* pew-pew-lei.caf */; };
+		784754FB1FB643BC007FD5F6 /* CGPoint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784754FA1FB643BC007FD5F6 /* CGPoint+Extension.swift */; };
+		788BB2C11FB62C5500229E2D /* ActionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788BB2C01FB62C5500229E2D /* ActionInfo.swift */; };
 		788FC1BC1FB619C000EE24DB /* PlayerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788FC1BB1FB619C000EE24DB /* PlayerInfo.swift */; };
 		788FC1BE1FB619F200EE24DB /* SessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788FC1BD1FB619F200EE24DB /* SessionInfo.swift */; };
 		B62ED9E41FB605CF00C801BB /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62ED9E31FB605CF00C801BB /* Level.swift */; };
@@ -75,6 +78,9 @@
 		64F5C4841FB52B2A004F5B25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		780353311FB5FCF60083B3D3 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		780353331FB602D90083B3D3 /* MPCAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPCAttributedString.swift; sourceTree = "<group>"; };
+		784754F71FB63EEC007FD5F6 /* pew-pew-lei.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pew-pew-lei.caf"; sourceTree = "<group>"; };
+		784754FA1FB643BC007FD5F6 /* CGPoint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extension.swift"; sourceTree = "<group>"; };
+		788BB2C01FB62C5500229E2D /* ActionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionInfo.swift; sourceTree = "<group>"; };
 		788FC1BB1FB619C000EE24DB /* PlayerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInfo.swift; sourceTree = "<group>"; };
 		788FC1BD1FB619F200EE24DB /* SessionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionInfo.swift; sourceTree = "<group>"; };
 		9702913736FAECC6C1F14F05 /* Pods-InfectionUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfectionUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfectionUITests/Pods-InfectionUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -180,6 +186,8 @@
 				B62ED9E21FB6045600C801BB /* Model */,
 				788FC1BA1FB6199400EE24DB /* PvPNetwork */,
 				64F5C4691FB52B2A004F5B25 /* Assets.xcassets */,
+				784754F91FB6439A007FD5F6 /* Extensions */,
+				784754F61FB63EDE007FD5F6 /* Sounds */,
 				64F5C46E1FB52B2A004F5B25 /* Info.plist */,
 			);
 			path = Infection;
@@ -203,6 +211,22 @@
 			path = InfectionUITests;
 			sourceTree = "<group>";
 		};
+		784754F61FB63EDE007FD5F6 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				784754F71FB63EEC007FD5F6 /* pew-pew-lei.caf */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		784754F91FB6439A007FD5F6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				784754FA1FB643BC007FD5F6 /* CGPoint+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		788FC1BA1FB6199400EE24DB /* PvPNetwork */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +241,7 @@
 			children = (
 				B62ED9E31FB605CF00C801BB /* Level.swift */,
 				788FC1BB1FB619C000EE24DB /* PlayerInfo.swift */,
+				788BB2C01FB62C5500229E2D /* ActionInfo.swift */,
 				788FC1BD1FB619F200EE24DB /* SessionInfo.swift */,
 			);
 			path = Model;
@@ -361,6 +386,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				784754F81FB63EEC007FD5F6 /* pew-pew-lei.caf in Resources */,
 				64D5A0531FB62AA100F89947 /* PlayScene.sks in Resources */,
 				64F5C46A1FB52B2A004F5B25 /* Assets.xcassets in Resources */,
 				64D5A04F1FB6096500F89947 /* Main.storyboard in Resources */,
@@ -545,9 +571,11 @@
 				B62ED9E71FB6065700C801BB /* WallNode.swift in Sources */,
 				B62ED9E91FB6070600C801BB /* PlayerNode.swift in Sources */,
 				B62ED9E41FB605CF00C801BB /* Level.swift in Sources */,
+				784754FB1FB643BC007FD5F6 /* CGPoint+Extension.swift in Sources */,
 				64D5A0441FB6092900F89947 /* GameViewController.swift in Sources */,
 				64D5A0511FB6096500F89947 /* MainScene.swift in Sources */,
 				780353321FB5FCF60083B3D3 /* ConnectionManager.swift in Sources */,
+				788BB2C11FB62C5500229E2D /* ActionInfo.swift in Sources */,
 				788FC1BE1FB619F200EE24DB /* SessionInfo.swift in Sources */,
 				780353341FB602D90083B3D3 /* MPCAttributedString.swift in Sources */,
 				64D5A0551FB62ABE00F89947 /* PlayScene.swift in Sources */,
