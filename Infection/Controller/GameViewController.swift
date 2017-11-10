@@ -18,6 +18,17 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         self.setupMultipeerEventHandlers()
+//        skView = self.view as! SKView
+//        skView.ignoresSiblingOrder = true
+//        skView.backgroundColor = UIColor.clearColor()
+//
+//        if SPCYSettings.spcyDebugToggle() == true {
+//            debuggingMode()
+//        }
+//
+//        mainMenu = MainScene(size: view.frame.size)
+//        mainMenu!.managedObjectContext = managedObjectContext
+//        skView.presentScene(mainMenu)
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
