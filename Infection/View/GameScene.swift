@@ -48,19 +48,13 @@ class GameScene: SKScene {
             sLabel.isUserInteractionEnabled = false
             sButton.isUserInteractionEnabled = false
         }
-<<<<<<< HEAD
-
-=======
         
->>>>>>> master
         let level = Level(width: 10, height: 14)
         level.renderLevel(mapSize: self.size)
         
         for wall in level.walls {
             self.addChild(wall)
         }
-<<<<<<< HEAD
-=======
         
 //        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight))
 //        swipeRight.direction = .right
@@ -90,7 +84,6 @@ class GameScene: SKScene {
 //                                              SKAction.fadeOut(withDuration: 0.5),
 //                                              SKAction.removeFromParent()]))
 //        }
->>>>>>> master
     }
     
     
