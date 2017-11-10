@@ -1,5 +1,5 @@
 //
-//  Player.swift
+//  PlayerInfo.swift
 //  Infection
 //
 //  Created by PJ Vea on 11/10/17.
@@ -11,7 +11,7 @@ import MultipeerConnectivity
 
 private let myName = UIDevice.current.name
 
-class Player: MPCSerializable {
+class PlayerInfo: MPCSerializable {
     var uuid: UUID!
     var name: String!
     var position: CGPoint!
@@ -33,8 +33,8 @@ class Player: MPCSerializable {
         self.name = peer.displayName
     }
     
-    static func getMe() -> Player {
-        return Player(name: myName)
+    static func getMe() -> PlayerInfo {
+        return PlayerInfo(name: myName)
     }
     
     var mpcSerialized: Data {
