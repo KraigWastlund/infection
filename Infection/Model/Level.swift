@@ -10,5 +10,11 @@ import UIKit
 import SpriteKit
 
 class Level {
-    
+//    var walls: [WallNode]
+//    var rows: Int
+//    var columns: Int
+//
+//    convenience init() {
+//
+//    }
 }
