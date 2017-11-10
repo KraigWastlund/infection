@@ -18,13 +18,13 @@ class PlayerNode: SKSpriteNode {
         self.playerInfo = playerInfo
         self.size = size
         self.zPosition = 5
-//        self.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(3))
-//        self.physicsBody?.categoryBitMask = BitMask.player.rawValue
-//        self.physicsBody?.collisionBitMask = 0
-//        self.physicsBody?.contactTestBitMask = BitMask.wall.rawValue | BitMask.bullet.rawValue
-//        self.physicsBody?.isDynamic = true
-//        self.physicsBody?.allowsRotation = true
-//        self.physicsBody?.affectedByGravity = false
+        self.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(3))
+        self.physicsBody?.categoryBitMask = BitMask.player.rawValue
+        self.physicsBody?.collisionBitMask = 0
+        self.physicsBody?.contactTestBitMask = BitMask.wall.rawValue | BitMask.bullet.rawValue
+        self.physicsBody?.isDynamic = true
+        self.physicsBody?.allowsRotation = true
+        self.physicsBody?.affectedByGravity = false
         self.name = playerInfo.name
     }
 }

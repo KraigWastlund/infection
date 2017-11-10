@@ -28,14 +28,13 @@ class PlayScene: SKScene {
         
         let info = PlayerInfo(uuid: UUID(), name: "bob", position: CGPoint(x: 500, y: 500), velocity: CGVector(dx: 0, dy: 0))
         player = PlayerNode(size: CGSize(width: 50, height: 50), playerInfo: info)
-        guard let _ = player else { return }
         
         let level = Level(width: 10, height: 10)
         level.renderLevel(mapSize: self.size)
 
         for wall in level.walls {
             self.addChild(wall)
-        }
+        }   
         
         self.addChild(player)
         player.position = player.playerInfo.position
