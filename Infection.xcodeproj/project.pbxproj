@@ -105,6 +105,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		64D5A03F1FB607D300F89947 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		64F5C4501FB52B2A004F5B25 = {
 			isa = PBXGroup;
 			children = (
@@ -130,7 +137,7 @@
 		64F5C45B1FB52B2A004F5B25 /* Infection */ = {
 			isa = PBXGroup;
 			children = (
-				B62ED9E21FB6045600C801BB /* Model */,
+				64D5A03F1FB607D300F89947 /* Model */,
 				64F5C45C1FB52B2A004F5B25 /* AppDelegate.swift */,
 				64F5C45E1FB52B2A004F5B25 /* GameScene.sks */,
 				64F5C4601FB52B2A004F5B25 /* Actions.sks */,
@@ -160,13 +167,6 @@
 				64F5C4841FB52B2A004F5B25 /* Info.plist */,
 			);
 			path = InfectionUITests;
-			sourceTree = "<group>";
-		};
-		B62ED9E21FB6045600C801BB /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		EBBEA431D58700DF51D27CEA /* Pods */ = {
