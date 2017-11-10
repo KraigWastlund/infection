@@ -35,10 +35,10 @@ extension Sequence {
 class Cell {
     var xPos = 0
     var yPos = 0
-    var hasLeftWall = false
-    var hasRightWall = false
-    var hasTopWall = false
-    var hasBottomWall = false
+    var hasLeftWall = true
+    var hasRightWall = true
+    var hasTopWall = true
+    var hasBottomWall = true
     var visited = false
     
     convenience init(xPos: Int, yPos: Int, leftWall: Bool, rightWall: Bool, topWall: Bool, bottomWall: Bool) {
@@ -76,10 +76,41 @@ class Level {
         carveWalls(xPos: 0, yPos: 0)
     }
     
-    func placeWalls() {
+    func renderLevel(mapSize: CGSize) {
+        let widthOfCell = mapSize.width / CGFloat(width)
+        let heightOfCell = mapSize.width / CGFloat(width)
+        
         for cell in cells {
             if cell.hasLeftWall {
-                
+                let wallNode = WallNode(width: widthOfCell*0.3, height: heightOfCell)
+                let xPos = CGFloat(cell.xPos) * widthOfCell - mapSize.width/2
+                let yPos = CGFloat(cell.yPos) * heightOfCell + heightOfCell/2 - mapSize.height/2
+                wallNode.position = CGPoint(x: xPos, y: yPos)
+                walls.append(wallNode)
+            }
+            
+            if cell.hasRightWall {
+                let wallNode = WallNode(width: widthOfCell*0.3, height: heightOfCell)
+                let xPos = CGFloat(cell.xPos + 1) * widthOfCell - mapSize.width/2
+                let yPos = CGFloat(cell.yPos) * heightOfCell + heightOfCell/2 - mapSize.height/2
+                wallNode.position = CGPoint(x: xPos, y: yPos)
+                walls.append(wallNode)
+            }
+            
+            if cell.hasTopWall {
+                let wallNode = WallNode(width: widthOfCell, height: heightOfCell*0.3)
+                let xPos = CGFloat(cell.xPos) * widthOfCell + widthOfCell/2 - mapSize.width/2
+                let yPos = CGFloat(cell.yPos + 1) * heightOfCell - mapSize.height/2
+                wallNode.position = CGPoint(x: xPos, y: yPos) 
+                walls.append(wallNode)
+            }
+            
+            if cell.hasBottomWall {
+                let wallNode = WallNode(width: widthOfCell, height: heightOfCell*0.3)
+                let xPos = CGFloat(cell.xPos) * widthOfCell + widthOfCell/2 - mapSize.width/2
+                let yPos = CGFloat(cell.yPos) * heightOfCell - mapSize.height/2
+                wallNode.position = CGPoint(x: xPos, y: yPos)
+                walls.append(wallNode)
             }
         }
     }
