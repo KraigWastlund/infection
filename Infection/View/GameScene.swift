@@ -20,7 +20,6 @@ class GameScene: SKScene {
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
     let PLAYER_SPEED = CGFloat(30)
-    let player = PlayerNode(width: 30, height: 30)
     
     private var lastUpdateTime : TimeInterval = 0
     private var titleLabel: SKLabelNode!
@@ -145,19 +144,19 @@ class GameScene: SKScene {
 }
 
 extension GameScene {
-    func swipedRight(_ sender:UISwipeGestureRecognizer){
-        player.physicsBody?.applyForce(CGVector(dx: PLAYER_SPEED,dy: 0))
-    }
-    
-    func swipedLeft(_ sender:UISwipeGestureRecognizer){
-        player.physicsBody?.applyForce(CGVector(dx: -PLAYER_SPEED,dy: 0))
-    }
-    
-    func swipedUp(_ sender:UISwipeGestureRecognizer){
-        player.physicsBody?.applyForce(CGVector(dx: 0,dy: PLAYER_SPEED))
-    }
-    
-    func swipedDown(_ sender:UISwipeGestureRecognizer){
-        player.physicsBody?.applyForce(CGVector(dx: 0,dy: -PLAYER_SPEED))
-    }
+//    func swipedRight(_ sender:UISwipeGestureRecognizer){
+//        player.physicsBody?.applyForce(CGVector(dx: PLAYER_SPEED,dy: 0))
+//    }
+//    
+//    func swipedLeft(_ sender:UISwipeGestureRecognizer){
+//        player.physicsBody?.applyForce(CGVector(dx: -PLAYER_SPEED,dy: 0))
+//    }
+//    
+//    func swipedUp(_ sender:UISwipeGestureRecognizer){
+//        player.physicsBody?.applyForce(CGVector(dx: 0,dy: PLAYER_SPEED))
+//    }
+//    
+//    func swipedDown(_ sender:UISwipeGestureRecognizer){
+//        player.physicsBody?.applyForce(CGVector(dx: 0,dy: -PLAYER_SPEED))
+//    }
 }
