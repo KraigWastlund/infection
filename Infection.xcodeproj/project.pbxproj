@@ -105,13 +105,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		64D5A03F1FB607D300F89947 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		64D5A0401FB607F200F89947 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,7 +152,6 @@
 			children = (
 				64D5A0411FB6080000F89947 /* Controller */,
 				64D5A0401FB607F200F89947 /* View */,
-				64D5A03F1FB607D300F89947 /* Model */,
 				64F5C45C1FB52B2A004F5B25 /* AppDelegate.swift */,
 				64F5C4691FB52B2A004F5B25 /* Assets.xcassets */,
 				64F5C46E1FB52B2A004F5B25 /* Info.plist */,
