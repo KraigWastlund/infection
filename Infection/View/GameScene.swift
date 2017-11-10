@@ -19,6 +19,8 @@ class GameScene: SKScene {
     
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
+    let PLAYER_SPEED = CGFloat(30)
+    let player = PlayerNode(width: 30, height: 30)
     
     private var lastUpdateTime : TimeInterval = 0
     private var titleLabel: SKLabelNode!
@@ -48,14 +50,29 @@ class GameScene: SKScene {
             sButton.isUserInteractionEnabled = false
         }
         
-<<<<<<< HEAD
         let level = Level(width: 10, height: 14)
         level.renderLevel(mapSize: self.size)
         
         for wall in level.walls {
             self.addChild(wall)
         }
-=======
+        
+//        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight))
+//        swipeRight.direction = .right
+//        view.addGestureRecognizer(swipeRight)
+//        
+//        let swipeLeft:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedLeft))
+//        swipeLeft.direction = .left
+//        view.addGestureRecognizer(swipeLeft)
+//        
+//        let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedUp))
+//        swipeUp.direction = .up
+//        view.addGestureRecognizer(swipeUp)
+//        
+//        let swipeDown:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown))
+//        swipeDown.direction = .down
+//        view.addGestureRecognizer(swipeDown)
+        
         // Create shape node to use during mouse interaction
 //        let w = (self.size.width + self.size.height) * 0.05
 //        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
@@ -68,7 +85,6 @@ class GameScene: SKScene {
 //                                              SKAction.fadeOut(withDuration: 0.5),
 //                                              SKAction.removeFromParent()]))
 //        }
->>>>>>> f1481aa8d2831d8efbb1365845107b042282cdd7
     }
     
     
@@ -104,7 +120,6 @@ class GameScene: SKScene {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
     
-    
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         
@@ -126,5 +141,23 @@ class GameScene: SKScene {
     
     private func startButtonWasPressed() {
         
+    }
+}
+
+extension GameScene {
+    func swipedRight(_ sender:UISwipeGestureRecognizer){
+        player.physicsBody?.applyForce(CGVector(dx: PLAYER_SPEED,dy: 0))
+    }
+    
+    func swipedLeft(_ sender:UISwipeGestureRecognizer){
+        player.physicsBody?.applyForce(CGVector(dx: -PLAYER_SPEED,dy: 0))
+    }
+    
+    func swipedUp(_ sender:UISwipeGestureRecognizer){
+        player.physicsBody?.applyForce(CGVector(dx: 0,dy: PLAYER_SPEED))
+    }
+    
+    func swipedDown(_ sender:UISwipeGestureRecognizer){
+        player.physicsBody?.applyForce(CGVector(dx: 0,dy: -PLAYER_SPEED))
     }
 }

@@ -85,7 +85,7 @@ class GameViewController: UIViewController {
     
     @IBAction func sendAction(_ sender: Any) {
         self.player.position = CGPoint(x: self.player.position.x + 10, y: self.player.position.y + 10)
-        ConnectionManager.sendEvent(.position, object: ["player": Player(uuid: UUID(),name: "hello! :)", position: self.player.position)])
+        ConnectionManager.sendEvent(.position, object: ["player": Player(uuid: UUID(),name: "hello! :)", position: self.player.position, velocity: self.player.physicsBody!.velocity)])
     }
     
     // MARK: Multipeer
