@@ -10,7 +10,7 @@ import SpriteKit
 
 class WallNode: SKSpriteNode {
     convenience init(width: CGFloat, height: CGFloat) {
-        let texture = SKTexture(imageNamed: "Wall")
+        let texture = SKTexture(imageNamed: "wall")
         
         self.init(texture: texture, color: UIColor.white, size: CGSize(width: width, height: height))
         self.zPosition = 0
