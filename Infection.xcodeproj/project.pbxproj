@@ -18,6 +18,10 @@
 		64F5C46D1FB52B2A004F5B25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64F5C46B1FB52B2A004F5B25 /* LaunchScreen.storyboard */; };
 		64F5C4781FB52B2A004F5B25 /* InfectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F5C4771FB52B2A004F5B25 /* InfectionTests.swift */; };
 		64F5C4831FB52B2A004F5B25 /* InfectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F5C4821FB52B2A004F5B25 /* InfectionUITests.swift */; };
+		B62ED9E41FB605CF00C801BB /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62ED9E31FB605CF00C801BB /* Level.swift */; };
+		B62ED9E71FB6065700C801BB /* WallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62ED9E61FB6065700C801BB /* WallNode.swift */; };
+		B62ED9E91FB6070600C801BB /* PlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62ED9E81FB6070600C801BB /* PlayerNode.swift */; };
+		B62ED9EB1FB6080300C801BB /* BulletNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62ED9EA1FB6080300C801BB /* BulletNode.swift */; };
 		BC31FD6B66EC1ED6C5F54C7A /* Pods_InfectionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF89C8C14C4C305B2190EED6 /* Pods_InfectionTests.framework */; };
 		F1C6456B7BD06DEBC13D09E5 /* Pods_Infection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8712B7D61313F4ABC2451CB /* Pods_Infection.framework */; };
 /* End PBXBuildFile section */
@@ -62,6 +66,10 @@
 		64F5C4821FB52B2A004F5B25 /* InfectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfectionUITests.swift; sourceTree = "<group>"; };
 		64F5C4841FB52B2A004F5B25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9702913736FAECC6C1F14F05 /* Pods-InfectionUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfectionUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfectionUITests/Pods-InfectionUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B62ED9E31FB605CF00C801BB /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		B62ED9E61FB6065700C801BB /* WallNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallNode.swift; sourceTree = "<group>"; };
+		B62ED9E81FB6070600C801BB /* PlayerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerNode.swift; sourceTree = "<group>"; };
+		B62ED9EA1FB6080300C801BB /* BulletNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletNode.swift; sourceTree = "<group>"; };
 		C8712B7D61313F4ABC2451CB /* Pods_Infection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Infection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF89C8C14C4C305B2190EED6 /* Pods_InfectionTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InfectionTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E985D4E56A351C2E5B00C656 /* Pods-Infection.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Infection.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Infection/Pods-Infection.debug.xcconfig"; sourceTree = "<group>"; };
@@ -105,26 +113,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		64D5A0401FB607F200F89947 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				64F5C46B1FB52B2A004F5B25 /* LaunchScreen.storyboard */,
-				64F5C4661FB52B2A004F5B25 /* Main.storyboard */,
-				64F5C45E1FB52B2A004F5B25 /* GameScene.sks */,
-				64F5C4601FB52B2A004F5B25 /* Actions.sks */,
-				64F5C4621FB52B2A004F5B25 /* GameScene.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		64D5A0411FB6080000F89947 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				64F5C4641FB52B2A004F5B25 /* GameViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
 		64F5C4501FB52B2A004F5B25 = {
 			isa = PBXGroup;
 			children = (
@@ -150,10 +138,16 @@
 		64F5C45B1FB52B2A004F5B25 /* Infection */ = {
 			isa = PBXGroup;
 			children = (
-				64D5A0411FB6080000F89947 /* Controller */,
-				64D5A0401FB607F200F89947 /* View */,
+				B62ED9E51FB6061E00C801BB /* Sprites */,
+				B62ED9E21FB6045600C801BB /* Model */,
 				64F5C45C1FB52B2A004F5B25 /* AppDelegate.swift */,
+				64F5C45E1FB52B2A004F5B25 /* GameScene.sks */,
+				64F5C4601FB52B2A004F5B25 /* Actions.sks */,
+				64F5C4621FB52B2A004F5B25 /* GameScene.swift */,
+				64F5C4641FB52B2A004F5B25 /* GameViewController.swift */,
+				64F5C4661FB52B2A004F5B25 /* Main.storyboard */,
 				64F5C4691FB52B2A004F5B25 /* Assets.xcassets */,
+				64F5C46B1FB52B2A004F5B25 /* LaunchScreen.storyboard */,
 				64F5C46E1FB52B2A004F5B25 /* Info.plist */,
 			);
 			path = Infection;
@@ -175,6 +169,24 @@
 				64F5C4841FB52B2A004F5B25 /* Info.plist */,
 			);
 			path = InfectionUITests;
+			sourceTree = "<group>";
+		};
+		B62ED9E21FB6045600C801BB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B62ED9E31FB605CF00C801BB /* Level.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B62ED9E51FB6061E00C801BB /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+				B62ED9E61FB6065700C801BB /* WallNode.swift */,
+				B62ED9E81FB6070600C801BB /* PlayerNode.swift */,
+				B62ED9EA1FB6080300C801BB /* BulletNode.swift */,
+			);
+			path = Sprites;
 			sourceTree = "<group>";
 		};
 		EBBEA431D58700DF51D27CEA /* Pods */ = {
@@ -482,8 +494,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B62ED9EB1FB6080300C801BB /* BulletNode.swift in Sources */,
+				B62ED9E71FB6065700C801BB /* WallNode.swift in Sources */,
 				64F5C4631FB52B2A004F5B25 /* GameScene.swift in Sources */,
+				B62ED9E91FB6070600C801BB /* PlayerNode.swift in Sources */,
 				64F5C4651FB52B2A004F5B25 /* GameViewController.swift in Sources */,
+				B62ED9E41FB605CF00C801BB /* Level.swift in Sources */,
 				64F5C45D1FB52B2A004F5B25 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

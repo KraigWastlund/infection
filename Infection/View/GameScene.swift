@@ -9,6 +9,12 @@
 import SpriteKit
 import GameplayKit
 
+enum BitMask: UInt32 {
+    case player = 1
+    case wall = 2
+    case bullet = 4
+}
+
 class GameScene: SKScene {
     
     var entities = [GKEntity]()
