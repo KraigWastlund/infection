@@ -26,7 +26,7 @@ class GameScene: SKScene {
     private var startButton: SKSpriteNode!
     
     override func sceneDidLoad() {
-
+        super.sceneDidLoad()
         self.lastUpdateTime = 0
         
         // Get label node from scene and store it for use later
@@ -47,19 +47,6 @@ class GameScene: SKScene {
             sLabel.isUserInteractionEnabled = false
             sButton.isUserInteractionEnabled = false
         }
-        
-        // Create shape node to use during mouse interaction
-//        let w = (self.size.width + self.size.height) * 0.05
-//        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-//
-//        if let spinnyNode = self.spinnyNode {
-//            spinnyNode.lineWidth = 2.5
-//
-//            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-//            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-//                                              SKAction.fadeOut(withDuration: 0.5),
-//                                              SKAction.removeFromParent()]))
-//        }
     }
     
     
@@ -116,6 +103,7 @@ class GameScene: SKScene {
     }
     
     private func startButtonWasPressed() {
-        
+        let playScene = PlayScene()
+        self.view?.presentScene(playScene)
     }
 }
