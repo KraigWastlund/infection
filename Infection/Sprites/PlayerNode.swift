@@ -23,7 +23,7 @@ class PlayerNode: SKSpriteNode {
         self.physicsBody?.collisionBitMask = BitMask.wall.rawValue | BitMask.bullet.rawValue
         self.physicsBody?.contactTestBitMask = BitMask.wall.rawValue | BitMask.bullet.rawValue
         self.physicsBody?.isDynamic = true
-        self.physicsBody?.allowsRotation = true
+        self.physicsBody?.allowsRotation = false
         self.physicsBody?.affectedByGravity = false
         self.name = "player"
         self.playerInfo = playerInfo

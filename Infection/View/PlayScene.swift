@@ -15,6 +15,13 @@ enum BitMask: UInt32 {
     case bullet = 4
 }
 
+struct PhysicsCategory {
+    static let None      : UInt32 = 0
+    static let All       : UInt32 = UInt32.max
+    static let Monster   : UInt32 = 0b1       // 1
+    static let Projectile: UInt32 = 0b10      // 2
+}
+
 class PlayScene: SKScene, SKPhysicsContactDelegate {
     
     private var graphs = [String : GKGraph]()
@@ -62,6 +69,32 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func touchDown(atPoint pos : CGPoint) {
+        run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
+        
+        let projectile = SKSpriteNode(imageNamed: "ninja-star")
+        projectile.size = CGSize(width: 30, height: 30)
+        projectile.position = player.position
+        
+        projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
+        projectile.physicsBody?.isDynamic = true
+        projectile.physicsBody?.categoryBitMask = PhysicsCategory.Projectile
+        projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Monster
+        projectile.physicsBody?.collisionBitMask = PhysicsCategory.None
+        projectile.physicsBody?.usesPreciseCollisionDetection = true
+        
+        let offset = pos - projectile.position
+        
+        //        if (offset.x < 0) { return }
+        
+        addChild(projectile)
+        
+        let direction = offset.normalized()
+        let shootAmount = direction * 1000
+        let realDest = shootAmount + projectile.position
+        
+        let actionMove = SKAction.move(to: realDest, duration: 2.0)
+        let actionMoveDone = SKAction.removeFromParent()
+        projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
     }
     
     func touchMoved(toPoint pos : CGPoint) {
