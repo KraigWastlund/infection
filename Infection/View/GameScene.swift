@@ -2,7 +2,7 @@
 //  GameScene.swift
 //  Infection
 //
-//  Created by Kraig Wastlund on 11/9/17.
+//  Created by Donald Timpson of course. Kraig couldn't make this 11/9/17.
 //  Copyright © 2017 Kraig Wastlund. All rights reserved.
 //
 
@@ -46,6 +46,13 @@ class GameScene: SKScene {
             spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
                                               SKAction.fadeOut(withDuration: 0.5),
                                               SKAction.removeFromParent()]))
+        }
+        
+        let level = Level(width: 10, height: 14)
+        level.renderLevel(mapSize: self.size)
+        
+        for wall in level.walls {
+            self.addChild(wall)
         }
     }
     
