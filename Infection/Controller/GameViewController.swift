@@ -67,10 +67,11 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func sendAction(_ sender: Any) {
-        self.player.position = CGPoint(x: self.player.position.x + 10, y: self.player.position.y + 10)
-        
-        ConnectionManager.sendEvent(.position, object: ["player": PlayerInfo(uuid: UUID(),name: "hello! :)", position: self.player.position, velocity: self.player.physicsBody!.velocity)])
         ConnectionManager.sendEvent(.startGame, object: ["level": SessionInfo(uuid: UUID(), level: Level(width: 100, height: 100))])
+        self.player.position = CGPoint(x: self.player.position.x + 10, y: self.player.position.y + 10)
+        ConnectionManager.sendEvent(.playerInfo, object: ["playerInfo": PlayerInfo(uuid: UUID() ,name: "hello! :)", position: self.player.position, velocity: CGVector(dx: 0, dy: 0))])
+        ConnectionManager.sendEvent(.actionInfo, object: ["actionInfo": ActionInfo(uuid: UUID(), position: CGPoint(x: 10, y: 10), velocity: CGVector(dx: 0, dy: 0))])
+        ConnectionManager.sendEvent(.endGame)
     }
     
     // MARK: Multipeer
@@ -84,9 +85,9 @@ class GameViewController: UIViewController {
             print(testObject.level.height)
         }
         
-        ConnectionManager.onEvent(.position) { [unowned self] peer, object in
+        ConnectionManager.onEvent(.playerInfo) { [unowned self] peer, object in
             let dict = object as! [String: NSData]
-            let testObject = PlayerInfo(mpcSerialized: dict["player"]! as Data)
+            let testObject = PlayerInfo(mpcSerialized: dict["playerInfo"]! as Data)
             print(testObject.uuid)
             print(testObject.name)
             print(testObject.position)
@@ -103,8 +104,14 @@ class GameViewController: UIViewController {
             self.player.position = testObject.position
         }
         
+        ConnectionManager.onEvent(.actionInfo) { [unowned self] peer, object in
+            let dict = object as! [String: NSData]
+            print(dict)
+        }
+        
         ConnectionManager.onEvent(.endGame) { [unowned self] peer, object in
-            print("endGame")
+            let dict = object as! [String: NSData]
+            print(dict)
         }
     }
 }

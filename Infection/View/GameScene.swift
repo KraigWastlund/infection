@@ -15,13 +15,26 @@ enum BitMask: UInt32 {
     case bullet = 4
 }
 
+<<<<<<< HEAD
+=======
+struct PhysicsCategory {
+    static let None      : UInt32 = 0
+    static let All       : UInt32 = UInt32.max
+    static let Monster   : UInt32 = 0b1       // 1
+    static let Projectile: UInt32 = 0b10      // 2
+}
+
+>>>>>>> 1522c4cbfe3cf4a1b18d28dab8ddcc7c768d3c7b
 class GameScene: SKScene {
     
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
     let PLAYER_SPEED = CGFloat(30)
+<<<<<<< HEAD
     let playerInfo = PlayerInfo(uuid: UUID(),name: "hello! :)", position: CGPoint(x: 0, y: 0), velocity: CGVector(dx: 0, dy: 0))
     var player: PlayerNode!
+=======
+>>>>>>> 1522c4cbfe3cf4a1b18d28dab8ddcc7c768d3c7b
     
     private var lastUpdateTime : TimeInterval = 0
     private var titleLabel: SKLabelNode!
@@ -51,6 +64,7 @@ class GameScene: SKScene {
             sButton.isUserInteractionEnabled = false
         }
         
+<<<<<<< HEAD
         player = PlayerNode(width: 50, height: 50, playerInfo: playerInfo)
         player.position = CGPoint(x: 0, y: 0)
         self.addChild(player)
@@ -60,6 +74,10 @@ class GameScene: SKScene {
         let mapSize = CGSize(width: self.size.width, height: (750*750)/self.size.height)
         
         level.renderLevel(mapSize: mapSize)
+=======
+        let level = Level(width: 10, height: 14)
+        level.renderLevel(mapSize: self.size)
+>>>>>>> 1522c4cbfe3cf4a1b18d28dab8ddcc7c768d3c7b
         
         for wall in level.walls {
             self.addChild(wall)
@@ -100,6 +118,37 @@ class GameScene: SKScene {
         if self.startButton.contains(pos) {
             self.startButton.alpha = 0.5
         }
+<<<<<<< HEAD
+=======
+        
+        run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
+        
+        let projectile = SKSpriteNode(imageNamed: "ninja-star")
+        projectile.position = CGPoint(x: 10, y: 10)
+        projectile.size = CGSize(width: 30, height: 30)
+//        projectile.position = player.position
+        
+        projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
+        projectile.physicsBody?.isDynamic = true
+        projectile.physicsBody?.categoryBitMask = PhysicsCategory.Projectile
+        projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Monster
+        projectile.physicsBody?.collisionBitMask = PhysicsCategory.None
+        projectile.physicsBody?.usesPreciseCollisionDetection = true
+        
+        let offset = pos - projectile.position
+        
+//        if (offset.x < 0) { return }
+        
+        addChild(projectile)
+        
+        let direction = offset.normalized()
+        let shootAmount = direction * 1000
+        let realDest = shootAmount + projectile.position
+        
+        let actionMove = SKAction.move(to: realDest, duration: 2.0)
+        let actionMoveDone = SKAction.removeFromParent()
+        projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
+>>>>>>> 1522c4cbfe3cf4a1b18d28dab8ddcc7c768d3c7b
     }
     
     func touchMoved(toPoint pos : CGPoint) {
