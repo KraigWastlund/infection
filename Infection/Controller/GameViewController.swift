@@ -85,7 +85,8 @@ class GameViewController: UIViewController {
     
     @IBAction func sendAction(_ sender: Any) {
         self.player.position = CGPoint(x: self.player.position.x + 10, y: self.player.position.y + 10)
-        ConnectionManager.sendEvent(.position, object: ["player": PlayerInfo(uuid: UUID(),name: "hello! :)", position: self.player.position)])
+        
+        ConnectionManager.sendEvent(.position, object: ["player": PlayerInfo(uuid: UUID(),name: "hello! :)", position: self.player.position, velocity: self.player.physicsBody!.velocity)])
         ConnectionManager.sendEvent(.startGame, object: ["level": SessionInfo(uuid: UUID(), level: Level(width: 100, height: 100))])
     }
     
