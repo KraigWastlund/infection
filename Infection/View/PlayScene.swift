@@ -25,17 +25,23 @@ class PlayScene: SKScene {
     override func sceneDidLoad() {
         super.sceneDidLoad()
         
-        let playerInfo = PlayerInfo(uuid: UUID(),name: "hello! :)", position: CGPoint(x: 0, y: 0), velocity: CGVector(dx: 0, dy: 0))
-        player = PlayerNode(width: 1, height: 1, playerInfo: playerInfo)
-        player.position = CGPoint(x: 5, y: 5)
-        self.addChild(player)
-        
-        let level = Level(width: 10, height: 14)
+        let level = Level(width: 10, height: 10)
         level.renderLevel(mapSize: self.size)
         
         for wall in level.walls {
             self.addChild(wall)
         }
+        
+//        let texture = SKTexture(imageNamed: "player")
+//        let node = SKSpriteNode(texture: texture, color: UIColor.white, size: CGSize(width: 0.2, height: 0.2))
+//        node.position = CGPoint(x: 0.2, y: 0.2)
+//        self.addChild(node)
+        
+        let playerInfo = PlayerInfo(uuid: UUID(),name: "hello! :)", position: CGPoint(x: 0, y: 0), velocity: CGVector(dx: 0, dy: 0))
+        player = PlayerNode(width: 0.05, height: 0.05, playerInfo: playerInfo)
+        player.position = CGPoint(x: 0.15, y: 0.15)
+        player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 0.05, height: 0.05))
+        self.addChild(player)
         
         //        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight))
         //        swipeRight.direction = .right
@@ -56,6 +62,7 @@ class PlayScene: SKScene {
     
     
     func touchDown(atPoint pos : CGPoint) {
+        print(pos)
     }
     
     func touchMoved(toPoint pos : CGPoint) {
