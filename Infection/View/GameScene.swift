@@ -2,7 +2,7 @@
 //  GameScene.swift
 //  Infection
 //
-//  Created by Kraig Wastlund on 11/9/17.
+//  Created by Donald Timpson of course. Kraig couldn't make this 11/9/17.
 //  Copyright © 2017 Kraig Wastlund. All rights reserved.
 //
 
@@ -48,6 +48,14 @@ class GameScene: SKScene {
             sButton.isUserInteractionEnabled = false
         }
         
+<<<<<<< HEAD
+        let level = Level(width: 10, height: 14)
+        level.renderLevel(mapSize: self.size)
+        
+        for wall in level.walls {
+            self.addChild(wall)
+        }
+=======
         // Create shape node to use during mouse interaction
 //        let w = (self.size.width + self.size.height) * 0.05
 //        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
@@ -60,6 +68,7 @@ class GameScene: SKScene {
 //                                              SKAction.fadeOut(withDuration: 0.5),
 //                                              SKAction.removeFromParent()]))
 //        }
+>>>>>>> f1481aa8d2831d8efbb1365845107b042282cdd7
     }
     
     
