@@ -12,10 +12,11 @@ class PlayerNode: SKSpriteNode {
     var isInfected = false
     var playerInfo: PlayerInfo!
     
-    convenience init(width: CGFloat, height: CGFloat, playerInfo: PlayerInfo) {
-        let texture = SKTexture(imageNamed: "Player")
+    convenience init(size: CGSize, playerInfo: PlayerInfo) {
         
-        self.init(texture: texture, color: UIColor.white, size: CGSize(width: width, height: height))
+        self.init(imageNamed: "player")
+        self.playerInfo = playerInfo
+        self.size = size
         self.zPosition = 5
         self.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(3))
         self.physicsBody?.categoryBitMask = BitMask.player.rawValue

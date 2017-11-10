@@ -29,7 +29,7 @@ class GameViewController: UIViewController {
                 
                 player.position = CGPoint(x: 10, y: 10)
                 
-                sceneNode.addChild(player)
+//                sceneNode.addChild(player)
                 
                 
                 // Present the scene
@@ -37,9 +37,6 @@ class GameViewController: UIViewController {
                     view.presentScene(sceneNode)
                     
                     view.ignoresSiblingOrder = true
-                    
-                    view.showsFPS = true
-                    view.showsNodeCount = true
                 }
             }
         }

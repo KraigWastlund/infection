@@ -78,6 +78,8 @@ class MainScene: SKScene {
     
     private func startButtonWasPressed() {
         let playScene = PlayScene()
+        playScene.view?.showsFPS = true
+        playScene.view?.showsNodeCount = true
         self.view?.presentScene(playScene)
     }
 }
