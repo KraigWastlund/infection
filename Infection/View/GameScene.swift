@@ -70,14 +70,12 @@ class GameScene: SKScene {
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-//        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-//            n.position = pos
-//            n.strokeColor = SKColor.blue
-//            self.addChild(n)
-//        }
     }
     
     func touchUp(atPoint pos : CGPoint) {
+        if self.startButton.contains(pos) {
+            startButtonWasPressed()
+        }
         self.startButton.alpha = 1.0
     }
     
@@ -115,5 +113,9 @@ class GameScene: SKScene {
         }
         
         self.lastUpdateTime = currentTime
+    }
+    
+    private func startButtonWasPressed() {
+        
     }
 }
