@@ -20,6 +20,8 @@ class GameScene: SKScene {
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
     let PLAYER_SPEED = CGFloat(30)
+    let playerInfo = PlayerInfo(uuid: UUID(),name: "hello! :)", position: CGPoint(x: 0, y: 0), velocity: CGVector(dx: 0, dy: 0))
+    var player: PlayerNode!
     
     private var lastUpdateTime : TimeInterval = 0
     private var titleLabel: SKLabelNode!
@@ -48,19 +50,20 @@ class GameScene: SKScene {
             sLabel.isUserInteractionEnabled = false
             sButton.isUserInteractionEnabled = false
         }
-<<<<<<< HEAD
-
-=======
         
->>>>>>> master
-        let level = Level(width: 10, height: 14)
-        level.renderLevel(mapSize: self.size)
+        player = PlayerNode(width: 50, height: 50, playerInfo: playerInfo)
+        player.position = CGPoint(x: 0, y: 0)
+        self.addChild(player)
+        
+        let level = Level(width: 14, height: 8)
+        
+        let mapSize = CGSize(width: self.size.width, height: (750*750)/self.size.height)
+        
+        level.renderLevel(mapSize: mapSize)
         
         for wall in level.walls {
             self.addChild(wall)
         }
-<<<<<<< HEAD
-=======
         
 //        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight))
 //        swipeRight.direction = .right
@@ -90,7 +93,6 @@ class GameScene: SKScene {
 //                                              SKAction.fadeOut(withDuration: 0.5),
 //                                              SKAction.removeFromParent()]))
 //        }
->>>>>>> master
     }
     
     
