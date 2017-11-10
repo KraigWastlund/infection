@@ -18,28 +18,11 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         self.setupMultipeerEventHandlers()
-//        skView = self.view as! SKView
-//        skView.ignoresSiblingOrder = true
-//        skView.backgroundColor = UIColor.clearColor()
-//
-//        if SPCYSettings.spcyDebugToggle() == true {
-//            debuggingMode()
-//        }
-//
-//        mainMenu = MainScene(size: view.frame.size)
-//        mainMenu!.managedObjectContext = managedObjectContext
-//        skView.presentScene(mainMenu)
         
-        // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
-        // including entities and graphs.
-        if let scene = GKScene(fileNamed: "GameScene") {
+        if let scene = GKScene(fileNamed: "MainScene") {
             
             // Get the SKScene from the loaded GKScene
-            if let sceneNode = scene.rootNode as! GameScene? {
-                
-                // Copy gameplay related content over to the scene
-                sceneNode.entities = scene.entities
-                sceneNode.graphs = scene.graphs
+            if let sceneNode = scene.rootNode as! MainScene? {
                 
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
