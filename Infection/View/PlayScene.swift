@@ -15,47 +15,51 @@ enum BitMask: UInt32 {
     case bullet = 4
 }
 
-class PlayScene: SKScene {
+class PlayScene: SKScene, SKPhysicsContactDelegate {
     
     private var graphs = [String : GKGraph]()
-    private let PLAYER_SPEED = CGFloat(30)
+    private let PLAYER_SPEED = CGFloat(2000)
     private var lastUpdateTime : TimeInterval = 0
-    
     private var player: PlayerNode!
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
+        self.physicsWorld.contactDelegate = self
         
         let level = Level(width: 10, height: 10)
         level.renderLevel(mapSize: self.size)
         
         for wall in level.walls {
             self.addChild(wall)
-        }
+        }   
         
         let info = PlayerInfo(uuid: UUID(), name: "bob", position: CGPoint(x: 50, y: 50), velocity: CGVector(dx: 0, dy: 0))
-        player = PlayerNode(size: CGSize(width: 0.1, height: 0.1), playerInfo: info)
-        player.position = CGPoint(x: 0.15, y: 0.15)
+        player = PlayerNode(size: CGSize(width: 50, height: 50), playerInfo: info)
+        player.position = player.playerInfo.position
         
         self.addChild(player)
-        
-        //        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight))
-        //        swipeRight.direction = .right
-        //        view.addGestureRecognizer(swipeRight)
-        //
-        //        let swipeLeft:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedLeft))
-        //        swipeLeft.direction = .left
-        //        view.addGestureRecognizer(swipeLeft)
-        //
-        //        let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedUp))
-        //        swipeUp.direction = .up
-        //        view.addGestureRecognizer(swipeUp)
-        //
-        //        let swipeDown:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown))
-        //        swipeDown.direction = .down
-        //        view.addGestureRecognizer(swipeDown)
     }
     
+    override func didMove(to view: SKView) {
+        super.didMove(to: view)
+        self.view?.showsPhysics = true
+        
+        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight))
+        swipeRight.direction = .right
+        self.view?.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedLeft))
+        swipeLeft.direction = .left
+        self.view?.addGestureRecognizer(swipeLeft)
+        
+        let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedUp))
+        swipeUp.direction = .up
+        self.view?.addGestureRecognizer(swipeUp)
+        
+        let swipeDown:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown))
+        swipeDown.direction = .down
+        self.view?.addGestureRecognizer(swipeDown)
+    }
     
     func touchDown(atPoint pos : CGPoint) {
     }
@@ -98,20 +102,31 @@ class PlayScene: SKScene {
 }
 
 extension PlayScene {
-    //    func swipedRight(_ sender:UISwipeGestureRecognizer){
-    //        player.physicsBody?.applyForce(CGVector(dx: PLAYER_SPEED,dy: 0))
-    //    }
-    //
-    //    func swipedLeft(_ sender:UISwipeGestureRecognizer){
-    //        player.physicsBody?.applyForce(CGVector(dx: -PLAYER_SPEED,dy: 0))
-    //    }
-    //
-    //    func swipedUp(_ sender:UISwipeGestureRecognizer){
-    //        player.physicsBody?.applyForce(CGVector(dx: 0,dy: PLAYER_SPEED))
-    //    }
-    //
-    //    func swipedDown(_ sender:UISwipeGestureRecognizer){
-    //        player.physicsBody?.applyForce(CGVector(dx: 0,dy: -PLAYER_SPEED))
-    //    }
+    @objc func swipedRight(_ sender:UISwipeGestureRecognizer){
+        player.physicsBody?.applyForce(CGVector(dx: PLAYER_SPEED,dy: 0))
+    }
+
+    @objc func swipedLeft(_ sender:UISwipeGestureRecognizer){
+        player.physicsBody?.applyForce(CGVector(dx: -PLAYER_SPEED,dy: 0))
+    }
+
+    @objc func swipedUp(_ sender:UISwipeGestureRecognizer){
+        player.physicsBody?.applyForce(CGVector(dx: 0,dy: PLAYER_SPEED))
+    }
+
+    @objc func swipedDown(_ sender:UISwipeGestureRecognizer){
+        player.physicsBody?.applyForce(CGVector(dx: 0,dy: -PLAYER_SPEED))
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        
+        switch contactMask {
+        case BitMask.player.rawValue | BitMask.wall.rawValue:
+            player.playerInfo.velocity = CGVector(dx: 0, dy: 0)
+        default:
+            break
+        }
+    }
 }
 
