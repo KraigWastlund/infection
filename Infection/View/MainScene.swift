@@ -10,9 +10,7 @@ import SpriteKit
 import GameplayKit
 
 class MainScene: SKScene {
-    
-    var entities = [GKEntity]()
-    
+        
     private var titleLabel: SKLabelNode!
     private var startLabel: SKLabelNode!
     private var startButton: SKSpriteNode!

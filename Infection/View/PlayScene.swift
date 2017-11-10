@@ -17,7 +17,6 @@ enum BitMask: UInt32 {
 
 class PlayScene: SKScene {
     
-    private var entities = [GKEntity]()
     private var graphs = [String : GKGraph]()
     private let PLAYER_SPEED = CGFloat(30)
     private var lastUpdateTime : TimeInterval = 0
@@ -85,11 +84,6 @@ class PlayScene: SKScene {
         
         // Calculate time since last update
         let dt = currentTime - self.lastUpdateTime
-        
-        // Update entities
-        for entity in self.entities {
-            entity.update(deltaTime: dt)
-        }
         
         self.lastUpdateTime = currentTime
     }
