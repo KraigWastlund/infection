@@ -16,7 +16,7 @@ class BulletNode: SKSpriteNode {
         self.zPosition = 5
         self.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(3))
         self.physicsBody?.categoryBitMask = BitMask.bullet.rawValue
-        self.physicsBody?.collisionBitMask = 0
+        self.physicsBody?.collisionBitMask = BitMask.wall.rawValue | BitMask.player.rawValue
         self.physicsBody?.contactTestBitMask = BitMask.wall.rawValue | BitMask.player.rawValue
         self.physicsBody?.isDynamic = true
         self.physicsBody?.allowsRotation = false
