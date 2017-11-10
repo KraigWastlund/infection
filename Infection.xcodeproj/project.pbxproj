@@ -20,6 +20,7 @@
 		64F5C4831FB52B2A004F5B25 /* InfectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F5C4821FB52B2A004F5B25 /* InfectionUITests.swift */; };
 		780353321FB5FCF60083B3D3 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780353311FB5FCF60083B3D3 /* ConnectionManager.swift */; };
 		780353341FB602D90083B3D3 /* MPCAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780353331FB602D90083B3D3 /* MPCAttributedString.swift */; };
+		788BB2C11FB62C5500229E2D /* ActionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788BB2C01FB62C5500229E2D /* ActionInfo.swift */; };
 		788FC1BC1FB619C000EE24DB /* PlayerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788FC1BB1FB619C000EE24DB /* PlayerInfo.swift */; };
 		788FC1BE1FB619F200EE24DB /* SessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788FC1BD1FB619F200EE24DB /* SessionInfo.swift */; };
 		B62ED9E41FB605CF00C801BB /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62ED9E31FB605CF00C801BB /* Level.swift */; };
@@ -71,6 +72,7 @@
 		64F5C4841FB52B2A004F5B25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		780353311FB5FCF60083B3D3 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		780353331FB602D90083B3D3 /* MPCAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPCAttributedString.swift; sourceTree = "<group>"; };
+		788BB2C01FB62C5500229E2D /* ActionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionInfo.swift; sourceTree = "<group>"; };
 		788FC1BB1FB619C000EE24DB /* PlayerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInfo.swift; sourceTree = "<group>"; };
 		788FC1BD1FB619F200EE24DB /* SessionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionInfo.swift; sourceTree = "<group>"; };
 		9702913736FAECC6C1F14F05 /* Pods-InfectionUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfectionUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfectionUITests/Pods-InfectionUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 			children = (
 				B62ED9E31FB605CF00C801BB /* Level.swift */,
 				788FC1BB1FB619C000EE24DB /* PlayerInfo.swift */,
+				788BB2C01FB62C5500229E2D /* ActionInfo.swift */,
 				788FC1BD1FB619F200EE24DB /* SessionInfo.swift */,
 			);
 			path = Model;
@@ -541,6 +544,7 @@
 				64D5A0441FB6092900F89947 /* GameViewController.swift in Sources */,
 				64D5A0511FB6096500F89947 /* GameScene.swift in Sources */,
 				780353321FB5FCF60083B3D3 /* ConnectionManager.swift in Sources */,
+				788BB2C11FB62C5500229E2D /* ActionInfo.swift in Sources */,
 				788FC1BE1FB619F200EE24DB /* SessionInfo.swift in Sources */,
 				780353341FB602D90083B3D3 /* MPCAttributedString.swift in Sources */,
 				788FC1BC1FB619C000EE24DB /* PlayerInfo.swift in Sources */,
