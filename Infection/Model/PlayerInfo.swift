@@ -15,14 +15,16 @@ class PlayerInfo: MPCSerializable {
     var uuid: UUID!
     var name: String!
     var position: CGPoint!
+    var velocity: CGVector!
     
     var me: Bool { return self.name == myName }
     var displayName: String { return self.me ? "You" : self.name }
     
-    init(uuid: UUID!, name: String, position: CGPoint) {
+    init(uuid: UUID!, name: String, position: CGPoint, velocity: CGVector) {
         self.uuid = uuid
         self.name = name
         self.position = position
+        self.velocity = velocity
     }
     
     init(name: String) {
@@ -38,7 +40,7 @@ class PlayerInfo: MPCSerializable {
     }
     
     var mpcSerialized: Data {
-        let dictionary = ["uuid": self.uuid, "name": self.name, "position": self.position] as [String : Any]
+        let dictionary = ["uuid": self.uuid, "name": self.name, "position": self.position, "velocity": self.velocity] as [String : Any]
         return NSKeyedArchiver.archivedData(withRootObject: dictionary)
     }
     
@@ -47,5 +49,6 @@ class PlayerInfo: MPCSerializable {
         self.uuid = dict["uuid"]! as! UUID
         self.name = dict["name"]! as! String
         self.position = dict["position"]! as! CGPoint
+        self.velocity = dict["velocity"]! as! CGVector
     }
 }
