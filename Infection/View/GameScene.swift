@@ -42,6 +42,10 @@ class GameScene: SKScene {
             sLabel.run(SKAction.fadeIn(withDuration: 3.0))
             sButton.alpha = 0.0
             sButton.run(SKAction.fadeIn(withDuration: 3.0))
+            
+            tLabel.isUserInteractionEnabled = false
+            sLabel.isUserInteractionEnabled = false
+            sButton.isUserInteractionEnabled = false
         }
         
         // Create shape node to use during mouse interaction
@@ -60,6 +64,9 @@ class GameScene: SKScene {
     
     
     func touchDown(atPoint pos : CGPoint) {
+        if self.startButton.contains(pos) {
+            self.startButton.color = .brown
+        }
 //        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
 //            n.position = pos
 //            n.strokeColor = SKColor.green
@@ -84,11 +91,10 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        if let label = self.label {
-//            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-//        }
-//        
-//        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        let touch = touches.first
+        if self.startButton.contains(touch?.location(in: self.startButton)) {
+            print("this")
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
