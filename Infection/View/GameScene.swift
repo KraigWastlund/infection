@@ -42,6 +42,10 @@ class GameScene: SKScene {
             sLabel.run(SKAction.fadeIn(withDuration: 3.0))
             sButton.alpha = 0.0
             sButton.run(SKAction.fadeIn(withDuration: 3.0))
+            
+            tLabel.isUserInteractionEnabled = false
+            sLabel.isUserInteractionEnabled = false
+            sButton.isUserInteractionEnabled = false
         }
         
         // Create shape node to use during mouse interaction
@@ -60,35 +64,23 @@ class GameScene: SKScene {
     
     
     func touchDown(atPoint pos : CGPoint) {
-//        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-//            n.position = pos
-//            n.strokeColor = SKColor.green
-//            self.addChild(n)
-//        }
+        if self.startButton.contains(pos) {
+            self.startButton.alpha = 0.5
+        }
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-//        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-//            n.position = pos
-//            n.strokeColor = SKColor.blue
-//            self.addChild(n)
-//        }
     }
     
     func touchUp(atPoint pos : CGPoint) {
-//        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-//            n.position = pos
-//            n.strokeColor = SKColor.red
-//            self.addChild(n)
-//        }
+        if self.startButton.contains(pos) {
+            startButtonWasPressed()
+        }
+        self.startButton.alpha = 1.0
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        if let label = self.label {
-//            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-//        }
-//        
-//        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -121,5 +113,9 @@ class GameScene: SKScene {
         }
         
         self.lastUpdateTime = currentTime
+    }
+    
+    private func startButtonWasPressed() {
+        
     }
 }
