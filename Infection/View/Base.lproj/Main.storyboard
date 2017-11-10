@@ -17,21 +17,7 @@
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wlc-c9-bmW">
-                                <rect key="frame" x="164" y="617" width="46" height="30"/>
-                                <state key="normal" title="Send"/>
-                                <connections>
-                                    <action selector="sendAction:" destination="BV1-FR-VrT" eventType="touchUpInside" id="6o5-kY-P6j"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="wlc-c9-bmW" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="164" id="ECk-Ui-22a"/>
-                            <constraint firstAttribute="bottom" secondItem="wlc-c9-bmW" secondAttribute="bottom" constant="20" symbolic="YES" id="Viz-5N-tPz"/>
-                            <constraint firstItem="wlc-c9-bmW" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="rbp-NM-ERd"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                     </view>
                 </viewController>

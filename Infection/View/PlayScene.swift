@@ -21,15 +21,23 @@ class PlayScene: SKScene {
     private let PLAYER_SPEED = CGFloat(30)
     private var lastUpdateTime : TimeInterval = 0
     
+    private var player: PlayerNode!
+    
     override func sceneDidLoad() {
         super.sceneDidLoad()
         
-        let level = Level(width: 10, height: 14)
-        level.renderLevel(mapSize: self.size)
+        let info = PlayerInfo(uuid: UUID(), name: "bob", position: CGPoint(x: 50, y: 50), velocity: CGVector(dx: 0, dy: 0))
+        player = PlayerNode(size: CGSize(width: 0.1, height: 0.1), playerInfo: info)
+        guard let _ = player else { return }
         
+        let level = Level(width: 10, height: 10)
+        level.renderLevel(mapSize: self.size)
+
         for wall in level.walls {
             self.addChild(wall)
         }
+        
+        self.addChild(player)
         
         //        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight))
         //        swipeRight.direction = .right
