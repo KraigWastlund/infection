@@ -9,6 +9,9 @@
 import SpriteKit
 
 class PlayerNode: SKSpriteNode {
+    
+    var isInfected = false
+    
     convenience init(width: CGFloat, height: CGFloat) {
         let texture = SKTexture(imageNamed: "Player")
         
