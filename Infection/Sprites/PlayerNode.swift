@@ -13,7 +13,7 @@ class PlayerNode: SKSpriteNode {
     var playerInfo: PlayerInfo!
     
     convenience init(width: CGFloat, height: CGFloat, playerInfo: PlayerInfo) {
-        let texture = SKTexture(imageNamed: "Player")
+        let texture = SKTexture(imageNamed: "player")
         
         self.init(texture: texture, color: UIColor.white, size: CGSize(width: width, height: height))
         self.zPosition = 5

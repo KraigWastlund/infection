@@ -19,10 +19,16 @@ class PlayScene: SKScene {
     
     private var graphs = [String : GKGraph]()
     private let PLAYER_SPEED = CGFloat(30)
+    private var player: PlayerNode!
     private var lastUpdateTime : TimeInterval = 0
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
+        
+        let playerInfo = PlayerInfo(uuid: UUID(),name: "hello! :)", position: CGPoint(x: 0, y: 0), velocity: CGVector(dx: 0, dy: 0))
+        player = PlayerNode(width: 1, height: 1, playerInfo: playerInfo)
+        player.position = CGPoint(x: 5, y: 5)
+        self.addChild(player)
         
         let level = Level(width: 10, height: 14)
         level.renderLevel(mapSize: self.size)
