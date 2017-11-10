@@ -2,7 +2,7 @@
 //  GameScene.swift
 //  Infection
 //
-//  Created by Donald Timpson of course. Kraig couldn't make this 11/9/17.
+//  Created by Kraig Timpson 11/9/17.
 //  Copyright © 2017 Kraig Wastlund. All rights reserved.
 //
 
@@ -27,7 +27,7 @@ class GameScene: SKScene {
     private var startButton: SKSpriteNode!
     
     override func sceneDidLoad() {
-
+        super.sceneDidLoad()
         self.lastUpdateTime = 0
         
         // Get label node from scene and store it for use later
@@ -48,13 +48,19 @@ class GameScene: SKScene {
             sLabel.isUserInteractionEnabled = false
             sButton.isUserInteractionEnabled = false
         }
+<<<<<<< HEAD
+
+=======
         
+>>>>>>> master
         let level = Level(width: 10, height: 14)
         level.renderLevel(mapSize: self.size)
         
         for wall in level.walls {
             self.addChild(wall)
         }
+<<<<<<< HEAD
+=======
         
 //        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight))
 //        swipeRight.direction = .right
@@ -84,6 +90,7 @@ class GameScene: SKScene {
 //                                              SKAction.fadeOut(withDuration: 0.5),
 //                                              SKAction.removeFromParent()]))
 //        }
+>>>>>>> master
     }
     
     
@@ -139,7 +146,8 @@ class GameScene: SKScene {
     }
     
     private func startButtonWasPressed() {
-        
+        let playScene = PlayScene()
+        self.view?.presentScene(playScene)
     }
 }
 
