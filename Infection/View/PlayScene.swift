@@ -21,12 +21,21 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
     private let PLAYER_SPEED = CGFloat(2000)
     private var lastUpdateTime : TimeInterval = 0
     private var player: PlayerNode!
+    fileprivate var playerSize: Double!
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
         self.physicsWorld.contactDelegate = self
         
-        let level = Level(width: 10, height: 10)
+        let height = 10
+        let screenHeight = Int(self.size.height)
+        let screenWidth = Int(self.size.width)
+        let cellDimm = screenHeight / height
+        let width = screenWidth / cellDimm
+        
+        self.playerSize = Double(cellDimm) * 0.65
+        
+        let level = Level(width: width, height: height)
         level.renderLevel(mapSize: self.size)
         
         for wall in level.walls {
@@ -34,7 +43,7 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         }   
         
         let info = PlayerInfo(uuid: UUID(), name: "bob", position: CGPoint(x: 50, y: 50), velocity: CGVector(dx: 0, dy: 0))
-        player = PlayerNode(size: CGSize(width: 40, height: 40), playerInfo: info)
+        player = PlayerNode(size: CGSize(width: self.playerSize, height: self.playerSize), playerInfo: info)
         player.position = player.playerInfo.position
         
         self.addChild(player)

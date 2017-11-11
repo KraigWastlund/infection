@@ -21,6 +21,7 @@ class WallNode: SKSpriteNode {
         self.physicsBody?.isDynamic = false
         self.physicsBody?.allowsRotation = false
         self.physicsBody?.affectedByGravity = false
+        self.physicsBody?.restitution = 0
         self.name = "Wall"
     }
 }
