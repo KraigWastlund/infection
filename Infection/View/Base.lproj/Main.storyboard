@@ -28,7 +28,7 @@
         <!--Settings View Controller-->
         <scene sceneID="3ac-Eo-Bcn">
             <objects>
-                <viewController storyboardIdentifier="SettingsViewController" id="gjh-gv-y7O" customClass="SettingsViewController" customModule="Spacey2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsViewController" id="gjh-gv-y7O" customClass="SettingsViewController" customModule="Infection" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ukk-rN-xcl"/>
                         <viewControllerLayoutGuide type="bottom" id="g3p-jt-wWa"/>
@@ -65,7 +65,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F7B-Qn-1KG" customClass="PlaySoundButton" customModule="Spacey2" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F7B-Qn-1KG" customClass="PlaySoundButton" customModule="Infection" customModuleProvider="target">
                                         <rect key="frame" x="292" y="0.0" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="MUV-9q-Vtv"/>
@@ -120,7 +120,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6f7-Ai-FfU" customClass="PlaySoundButton" customModule="Spacey2" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6f7-Ai-FfU" customClass="PlaySoundButton" customModule="Infection" customModuleProvider="target">
                                         <rect key="frame" x="292" y="0.0" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="Eht-wa-ONG"/>
@@ -169,7 +169,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7U-di-2RY" customClass="PlaySoundButton" customModule="Spacey2" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7U-di-2RY" customClass="PlaySoundButton" customModule="Infection" customModuleProvider="target">
                                         <rect key="frame" x="292" y="0.0" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="dc9-lx-Xlf"/>
@@ -249,7 +249,7 @@
                                 <color key="textColor" red="0.2666666667" green="0.84313725490000002" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixG-ab-CSn" customClass="PlaySoundButton" customModule="Spacey2" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixG-ab-CSn" customClass="PlaySoundButton" customModule="Infection" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="52" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="Oyy-eh-ZcD"/>
@@ -298,7 +298,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ocN-Ck-s4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="134" y="783"/>
+            <point key="canvasLocation" x="46" y="727"/>
         </scene>
     </scenes>
     <resources>

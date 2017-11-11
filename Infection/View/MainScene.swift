@@ -10,19 +10,26 @@ import SpriteKit
 import GameplayKit
 
 class MainScene: SKScene {
-        
+    
+    weak var parentViewController: GameViewController?
     private var titleLabel: SKLabelNode!
     private var startLabel: SKLabelNode!
     private var startButton: SKSpriteNode!
     
+    private var settingsLabel: SKLabelNode!
+    private var settingsButton: SKSpriteNode!
+    
     override func sceneDidLoad() {
         super.sceneDidLoad()
+        
         // Get label node from scene and store it for use later
         self.titleLabel = self.childNode(withName: "//titleLabel") as? SKLabelNode
         self.startLabel = self.childNode(withName: "//startLabel") as? SKLabelNode
         self.startButton = self.childNode(withName: "//startButton") as? SKSpriteNode
+        self.settingsLabel = self.childNode(withName: "//settingsLabel") as? SKLabelNode
+        self.settingsButton = self.childNode(withName: "//settingsButton") as? SKSpriteNode
         
-        if let tLabel = self.titleLabel, let sLabel = startLabel, let sButton = startButton {
+        if let tLabel = self.titleLabel, let sLabel = startLabel, let sButton = startButton, let settingLabel = settingsLabel, let settingButton = settingsButton {
             tLabel.alpha = 0.0
             tLabel.run(SKAction.fadeIn(withDuration: 3.0))
             tLabel.run(SKAction.scale(by: 3.0, duration: 3.0))
@@ -30,6 +37,10 @@ class MainScene: SKScene {
             sLabel.run(SKAction.fadeIn(withDuration: 3.0))
             sButton.alpha = 0.0
             sButton.run(SKAction.fadeIn(withDuration: 3.0))
+            settingLabel.alpha = 0.0
+            settingLabel.run(SKAction.fadeIn(withDuration: 3.0))
+            settingButton.alpha = 0.0
+            settingButton.run(SKAction.fadeIn(withDuration: 3.0))
         }
     }
     
@@ -47,6 +58,10 @@ class MainScene: SKScene {
             startButtonWasPressed()
         }
         self.startButton.alpha = 1.0
+        
+        if self.settingsButton.contains(pos) {
+            settingsButtonPressed()
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -75,5 +90,9 @@ class MainScene: SKScene {
         playScene.view?.showsFPS = true
         playScene.view?.showsNodeCount = true
         self.view?.presentScene(playScene)
+    }
+    
+    private func settingsButtonPressed() {
+        self.parentViewController!.openSettingsController()
     }
 }
