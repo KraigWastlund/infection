@@ -116,7 +116,7 @@ class Level {
         
         for cell in cells {
             if cell.hasLeftWall {
-                let wallNode = WallNode(width: widthOfCell*0.3, height: heightOfCell)
+                let wallNode = WallNode(width: widthOfCell*0.25, height: heightOfCell, orientation: .vertical)
                 let xPos = CGFloat(cell.xPos) * widthOfCell
                 let yPos = CGFloat(cell.yPos) * heightOfCell + heightOfCell/2
                 wallNode.position = CGPoint(x: xPos, y: yPos)
@@ -124,7 +124,7 @@ class Level {
             }
             
             if cell.hasRightWall {
-                let wallNode = WallNode(width: widthOfCell*0.3, height: heightOfCell)
+                let wallNode = WallNode(width: widthOfCell*0.25, height: heightOfCell, orientation: .vertical)
                 let xPos = CGFloat(cell.xPos + 1) * widthOfCell
                 let yPos = CGFloat(cell.yPos) * heightOfCell + heightOfCell/2
                 wallNode.position = CGPoint(x: xPos, y: yPos)
@@ -132,15 +132,15 @@ class Level {
             }
             
             if cell.hasTopWall {
-                let wallNode = WallNode(width: widthOfCell, height: heightOfCell*0.3)
+                let wallNode = WallNode(width: widthOfCell, height: heightOfCell*0.25, orientation: .horizontal)
                 let xPos = CGFloat(cell.xPos) * widthOfCell + widthOfCell/2
                 let yPos = CGFloat(cell.yPos + 1) * heightOfCell
-                wallNode.position = CGPoint(x: xPos, y: yPos) 
+                wallNode.position = CGPoint(x: xPos, y: yPos)
                 walls.append(wallNode)
             }
             
             if cell.hasBottomWall {
-                let wallNode = WallNode(width: widthOfCell, height: heightOfCell*0.3)
+                let wallNode = WallNode(width: widthOfCell, height: heightOfCell*0.25, orientation: .horizontal)
                 let xPos = CGFloat(cell.xPos) * widthOfCell + widthOfCell/2
                 let yPos = CGFloat(cell.yPos) * heightOfCell
                 wallNode.position = CGPoint(x: xPos, y: yPos)

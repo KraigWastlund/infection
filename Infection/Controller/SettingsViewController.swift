@@ -17,6 +17,10 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        soundButton.addTarget(self, action: #selector(soundButtonPressed(_:)), for: .touchUpInside)
+        backgroundMusicButton.addTarget(self, action: #selector(backgroundMusicButtonPressed(_:)), for: .touchUpInside)
+        vibrateButton.addTarget(self, action: #selector(vibrateButtonPressed(_:)), for: .touchUpInside)
+        
         if Settings.getSettings().soundOn {
             soundButton.setTitle("ON", for: .normal)
         } else {
@@ -49,35 +53,37 @@ class SettingsViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func soundButtonPressed(_ sender: UIButton) {
+    
+    
+    @objc func soundButtonPressed(_ sender: UIButton) {
         let isOn = !Settings.getSettings().soundOn
-        
+
         Settings.setSound(isOn)
-        
+
         if isOn {
             sender.setTitle("ON", for: .normal)
         } else {
             sender.setTitle("OFF", for: .normal)
         }
     }
-    
-    @IBAction func backgroundMusicButtonPressed(_ sender: UIButton) {
+
+    @objc func backgroundMusicButtonPressed(_ sender: UIButton) {
         let isOn = !Settings.getSettings().musicOn
-        
+
         Settings.setBackgroundMusic(isOn)
-        
+
         if isOn {
             sender.setTitle("ON", for: .normal)
         } else {
             sender.setTitle("OFF", for: .normal)
         }
     }
-    
-    @IBAction func vibrateButtonPressed(_ sender: UIButton) {
+
+    @objc func vibrateButtonPressed(_ sender: UIButton) {
         let isOn = !Settings.getSettings().vibrateOn
-        
+
         Settings.setVibrate(isOn)
-        
+
         if isOn {
             sender.setTitle("ON", for: .normal)
         } else {
