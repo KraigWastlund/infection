@@ -15,13 +15,6 @@ enum BitMask: UInt32 {
     case bullet = 4
 }
 
-struct PhysicsCategory {
-    static let None      : UInt32 = 0
-    static let All       : UInt32 = UInt32.max
-    static let Monster   : UInt32 = 0b1       // 1
-    static let Projectile: UInt32 = 0b10      // 2
-}
-
 class PlayScene: SKScene, SKPhysicsContactDelegate {
     
     private var graphs = [String : GKGraph]()
@@ -41,7 +34,7 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         }   
         
         let info = PlayerInfo(uuid: UUID(), name: "bob", position: CGPoint(x: 50, y: 50), velocity: CGVector(dx: 0, dy: 0))
-        player = PlayerNode(size: CGSize(width: 50, height: 50), playerInfo: info)
+        player = PlayerNode(size: CGSize(width: 40, height: 40), playerInfo: info)
         player.position = player.playerInfo.position
         
         self.addChild(player)
@@ -69,32 +62,6 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func touchDown(atPoint pos : CGPoint) {
-        run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
-        
-        let projectile = SKSpriteNode(imageNamed: "ninja-star")
-        projectile.size = CGSize(width: 30, height: 30)
-        projectile.position = player.position
-        
-        projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
-        projectile.physicsBody?.isDynamic = true
-        projectile.physicsBody?.categoryBitMask = PhysicsCategory.Projectile
-        projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Monster
-        projectile.physicsBody?.collisionBitMask = PhysicsCategory.None
-        projectile.physicsBody?.usesPreciseCollisionDetection = true
-        
-        let offset = pos - projectile.position
-        
-        //        if (offset.x < 0) { return }
-        
-        addChild(projectile)
-        
-        let direction = offset.normalized()
-        let shootAmount = direction * 1000
-        let realDest = shootAmount + projectile.position
-        
-        let actionMove = SKAction.move(to: realDest, duration: 2.0)
-        let actionMoveDone = SKAction.removeFromParent()
-        projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
     }
     
     func touchMoved(toPoint pos : CGPoint) {
@@ -112,7 +79,27 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        if let touch = touches.first, touches.count == 1 {
+            if isFiringTouch(touch: touch) {
+                fireBullet(at: touch.location(in: self))
+            }
+        } else {
+            for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        }
+    }
+    
+    func isFiringTouch(touch: UITouch) -> Bool {
+        let pos = touch.preciseLocation(in: self.view)
+        let prevPos = touch.previousLocation(in: self.view)
+        let thisDistance = distance(between: pos, and: prevPos)
+        
+        return thisDistance == 0.0
+    }
+    
+    func distance(between a: CGPoint, and b: CGPoint) -> CGFloat {
+        let xDist = a.x - b.x
+        let yDist = a.y - b.y
+        return CGFloat(sqrt((xDist * xDist) + (yDist * yDist)))
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -127,10 +114,27 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
             self.lastUpdateTime = currentTime
         }
         
-        // Calculate time since last update
-        let dt = currentTime - self.lastUpdateTime
-        
         self.lastUpdateTime = currentTime
+    }
+}
+
+extension PlayScene {
+    
+    fileprivate func fireBullet(at pos: CGPoint) {
+        run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
+        
+        let projectile = BulletNode(width: 20, height: 20)
+        projectile.position = player.position
+        addChild(projectile)
+        
+        let offset = pos - projectile.position
+        let direction = offset.normalized()
+        let shootAmount = direction * 1000
+        let realDest = shootAmount + projectile.position
+        
+        let actionMove = SKAction.move(to: realDest, duration: 5.0)
+        let actionMoveDone = SKAction.removeFromParent()
+        projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
     }
 }
 
@@ -157,6 +161,16 @@ extension PlayScene {
         switch contactMask {
         case BitMask.player.rawValue | BitMask.wall.rawValue:
             player.playerInfo.velocity = CGVector(dx: 0, dy: 0)
+        case BitMask.bullet.rawValue | BitMask.wall.rawValue:
+            let bullet = contact.bodyB.node
+            bullet?.removeFromParent()
+        case BitMask.bullet.rawValue | BitMask.player.rawValue:
+            let player = contact.bodyA.node
+            if player != self.player {
+                // bullet has hit another player
+                let bullet = contact.bodyB.node
+                bullet?.removeFromParent()
+            }
         default:
             break
         }
