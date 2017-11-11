@@ -15,31 +15,22 @@ class PlayerInfo: MPCSerializable {
     var uuid: UUID!
     var name: String!
     var position: CGPoint!
-    var isInfected: Bool!
     
     var me: Bool { return self.name == myName }
     var displayName: String { return self.me ? "You" : self.name }
     
-    init(name: String, position: CGPoint) { // assume uuid is set
+    init(uuid: UUID!, name: String, position: CGPoint) {
+        self.uuid = uuid
         self.name = name
         self.position = position
-        if self.uuid == nil {
-            self.uuid = UUID()
-        }
     }
     
     init(name: String) {
         self.name = name
-        if self.uuid == nil {
-            self.uuid = UUID()
-        }
     }
     
     init(peer: MCPeerID) {
         self.name = peer.displayName
-        if self.uuid == nil {
-            self.uuid = UUID()
-        }
     }
     
     static func getMe() -> PlayerInfo {
