@@ -48,11 +48,12 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         player.position = player.playerInfo.position
         
         self.addChild(player)
+        self.backgroundColor = .lightGray
     }
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        self.view?.showsPhysics = true
+        self.view?.showsPhysics = false
         
         let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight))
         swipeRight.direction = .right

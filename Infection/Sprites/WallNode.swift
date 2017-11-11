@@ -8,9 +8,20 @@
 
 import SpriteKit
 
+enum WallOrientation {
+    case horizontal
+    case vertical
+}
+
 class WallNode: SKSpriteNode {
-    convenience init(width: CGFloat, height: CGFloat) {
-        let texture = SKTexture(imageNamed: "wall")
+    convenience init(width: CGFloat, height: CGFloat, orientation: WallOrientation) {
+        var texture: SKTexture!
+        if orientation == .horizontal {
+            texture = SKTexture(imageNamed: "wall_h")
+        } else {
+            texture = SKTexture(imageNamed: "wall_v")
+        }
+        assert(texture != nil, "we failed?!")
         
         self.init(texture: texture, color: UIColor.white, size: CGSize(width: width, height: height))
         self.zPosition = 0
