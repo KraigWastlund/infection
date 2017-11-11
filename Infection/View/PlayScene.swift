@@ -204,14 +204,13 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         } else {
             guard let time = initialLoadTime else { return }
             
-            if self.camera == nil && currentTime - time > 2 {
+            if self.camera == nil && currentTime - time > 1 {
                 let cameraNode = SKCameraNode()
                 cameraNode.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
                 self.addChild(cameraNode)
                 self.camera = cameraNode
-                let delay = SKAction.wait(forDuration: 0.25)
                 let group = SKAction.group([SKAction.scale(to: 0.35, duration: 1.0), SKAction.move(to: player.position, duration: 1.0)])
-                camera!.run(SKAction.sequence( [ delay, group ]), completion: {
+                camera!.run(group, completion: {
                     self.cameraSet = true
                 })
             }
