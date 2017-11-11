@@ -22,6 +22,7 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
     private var lastUpdateTime : TimeInterval = 0
     private var player: PlayerNode!
     fileprivate var playerSize: Double!
+    fileprivate var cameraSet = false
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
@@ -47,6 +48,19 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         player.position = player.playerInfo.position
         
         self.addChild(player)
+        
+        let cameraNode = SKCameraNode()
+        cameraNode.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        self.addChild(cameraNode)
+        self.camera = cameraNode
+        let delay = SKAction.wait(forDuration: 0.5)
+        let group = SKAction.group([SKAction.scale(to: 0.3, duration: 1.0), SKAction.move(to: player.position, duration: 1.0)])
+        camera!.run(SKAction.sequence( [ delay, group ]))
+        perform(#selector(setCamera), with: nil, afterDelay: 2.0)
+    }
+    
+    @objc func setCamera() {
+        cameraSet = true
     }
     
     override func didMove(to view: SKView) {
@@ -116,14 +130,9 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
-        
-        // Initialize _lastUpdateTime if it has not already been
-        if (self.lastUpdateTime == 0) {
-            self.lastUpdateTime = currentTime
+        if cameraSet {
+            camera!.run(SKAction.move(to: player.position, duration: 0.1))
         }
-        
-        self.lastUpdateTime = currentTime
     }
 }
 

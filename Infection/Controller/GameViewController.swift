@@ -17,7 +17,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        self.setupMultipeerEventHandlers()
+//        self.setupMultipeerEventHandlers()
         
         if let scene = GKScene(fileNamed: "MainScene") {
             
@@ -61,42 +61,42 @@ class GameViewController: UIViewController {
     
     // MARK: Multipeer
     
-    fileprivate func setupMultipeerEventHandlers() {
-        ConnectionManager.onEvent(.startGame) { [unowned self] peer, object in
-            let dict = object as! [String: NSData]
-            let testObject = SessionInfo(mpcSerialized: dict["level"]! as Data)
-            print(testObject.uuid)
-            print(testObject.level.width)
-            print(testObject.level.height)
-        }
-        
-        ConnectionManager.onEvent(.playerInfo) { [unowned self] peer, object in
-            let dict = object as! [String: NSData]
-            let testObject = PlayerInfo(mpcSerialized: dict["playerInfo"]! as Data)
-            print(testObject.uuid)
-            print(testObject.name)
-            print(testObject.position)
-            print("ALL PLAYERS: ")
-            for player in ConnectionManager.allPlayers {
-                print(player.name)
-                print(player.displayName)
-            }
-            print("OTHER PLAYERS: ")
-            for player in ConnectionManager.otherPlayers {
-                print(player.name)
-                print(player.displayName)
-            }
-            self.player.position = testObject.position
-        }
-        
-        ConnectionManager.onEvent(.actionInfo) { [unowned self] peer, object in
-            let dict = object as! [String: NSData]
-            print(dict)
-        }
-        
-        ConnectionManager.onEvent(.endGame) { [unowned self] peer, object in
-            let dict = object as! [String: NSData]
-            print(dict)
-        }
-    }
+//    fileprivate func setupMultipeerEventHandlers() {
+//        ConnectionManager.onEvent(.startGame) { [unowned self] peer, object in
+//            let dict = object as! [String: NSData]
+//            let testObject = SessionInfo(mpcSerialized: dict["level"]! as Data)
+//            print(testObject.uuid)
+//            print(testObject.level.width)
+//            print(testObject.level.height)
+//        }
+//
+//        ConnectionManager.onEvent(.playerInfo) { [unowned self] peer, object in
+//            let dict = object as! [String: NSData]
+//            let testObject = PlayerInfo(mpcSerialized: dict["playerInfo"]! as Data)
+//            print(testObject.uuid)
+//            print(testObject.name)
+//            print(testObject.position)
+//            print("ALL PLAYERS: ")
+//            for player in ConnectionManager.allPlayers {
+//                print(player.name)
+//                print(player.displayName)
+//            }
+//            print("OTHER PLAYERS: ")
+//            for player in ConnectionManager.otherPlayers {
+//                print(player.name)
+//                print(player.displayName)
+//            }
+//            self.player.position = testObject.position
+//        }
+//
+//        ConnectionManager.onEvent(.actionInfo) { [unowned self] peer, object in
+//            let dict = object as! [String: NSData]
+//            print(dict)
+//        }
+//
+//        ConnectionManager.onEvent(.endGame) { [unowned self] peer, object in
+//            let dict = object as! [String: NSData]
+//            print(dict)
+//        }
+//    }
 }
