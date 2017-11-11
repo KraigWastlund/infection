@@ -11,6 +11,7 @@ import SpriteKit
 class PlayerNode: SKSpriteNode {
     var isInfected = false
     var playerInfo: PlayerInfo!
+    var previousPostition: CGPoint!
     
     convenience init(size: CGSize, playerInfo: PlayerInfo) {
         

@@ -58,6 +58,7 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         let info = PlayerInfo(uuid: UUID(), name: UIDevice.current.name, position: CGPoint(x: 50, y: 50))
         player = PlayerNode(size: CGSize(width: self.playerSize, height: self.playerSize), playerInfo: info)
         player.position = player.playerInfo.position
+        player.previousPostition = player.playerInfo.position
         
         self.addChild(player)
         self.backgroundColor = .lightGray
@@ -66,6 +67,7 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
             //playerInfo.position = CGPoint(x: 100, y: 100)
             let player = PlayerNode(size: CGSize(width: self.playerSize, height: self.playerSize), playerInfo: playerInfo)
             player.position = playerInfo.position
+            player.previousPostition = playerInfo.position
             
             self.players.append(player)
             self.addChild(player)
@@ -164,14 +166,14 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         if (player.physicsBody?.velocity.dx)! > CGFloat(0) {
             player.xScale = 1.0
         }
-//        for p in self.players {
-//            if (p.physicsBody?.velocity.dx)! < CGFloat(0) {
-//                p.xScale = -1.0
-//            }
-//            if (p.physicsBody?.velocity.dx)! > CGFloat(0) {
-//                p.xScale = 1.0
-//            }
-//        }
+        for p in self.players {
+            if p.previousPostition.x > p.position.x {
+                p.xScale = -1.0
+            }
+            if p.previousPostition.x < p.position.x {
+                p.xScale = 1.0
+            }
+        }
         
         
         if player.isInfected {
@@ -207,6 +209,13 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
                 })
             }
         }
+
+        player.previousPostition = player.position
+        for p in self.players {
+            if p.isInfected {
+                p.previousPostition = player.position
+            }
+        }
     }
 }
 
@@ -232,19 +241,27 @@ extension PlayScene {
 
 extension PlayScene {
     @objc func swipedRight(_ sender:UISwipeGestureRecognizer){
-        player.physicsBody?.applyForce(CGVector(dx: PLAYER_SPEED,dy: 0))
+        if cameraSet {
+            player.physicsBody?.applyForce(CGVector(dx: PLAYER_SPEED,dy: 0))
+        }
     }
 
     @objc func swipedLeft(_ sender:UISwipeGestureRecognizer){
-        player.physicsBody?.applyForce(CGVector(dx: -PLAYER_SPEED,dy: 0))
+        if cameraSet {
+            player.physicsBody?.applyForce(CGVector(dx: -PLAYER_SPEED,dy: 0))
+        }
     }
 
     @objc func swipedUp(_ sender:UISwipeGestureRecognizer){
-        player.physicsBody?.applyForce(CGVector(dx: 0,dy: PLAYER_SPEED))
+        if cameraSet {
+            player.physicsBody?.applyForce(CGVector(dx: 0,dy: PLAYER_SPEED))
+        }
     }
 
     @objc func swipedDown(_ sender:UISwipeGestureRecognizer){
-        player.physicsBody?.applyForce(CGVector(dx: 0,dy: -PLAYER_SPEED))
+        if cameraSet {
+            player.physicsBody?.applyForce(CGVector(dx: 0,dy: -PLAYER_SPEED))
+        }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -253,7 +270,6 @@ extension PlayScene {
         switch contactMask {
         case BitMask.player.rawValue | BitMask.wall.rawValue:
             break
-//            player.velocity = CGVector(dx: 0, dy: 0)
         case BitMask.bullet.rawValue | BitMask.wall.rawValue:
             let bullet = contact.bodyB.node
             bullet?.removeFromParent()
