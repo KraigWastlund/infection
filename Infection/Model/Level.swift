@@ -101,9 +101,9 @@ class Level {
             let yPos = Int(separatedByPeriod[1])!
             let characters = Array(String(separatedByPeriod[2]))
             let leftWall = Bool(truncating: NSNumber(value: Int(String(characters[0]))!))
-            let rightWall = Bool(truncating: NSNumber(value: Int(String(characters[0]))!))
-            let topWall = Bool(truncating: NSNumber(value: Int(String(characters[0]))!))
-            let bottomWall = Bool(truncating: NSNumber(value: Int(String(characters[0]))!))
+            let rightWall = Bool(truncating: NSNumber(value: Int(String(characters[1]))!))
+            let topWall = Bool(truncating: NSNumber(value: Int(String(characters[2]))!))
+            let bottomWall = Bool(truncating: NSNumber(value: Int(String(characters[3]))!))
             let cell = Cell(xPos: xPos, yPos: yPos, leftWall: leftWall, rightWall: rightWall, topWall: topWall, bottomWall: bottomWall)
             level.cells.append(cell)
         }
