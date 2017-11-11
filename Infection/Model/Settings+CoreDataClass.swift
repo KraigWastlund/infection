@@ -61,7 +61,7 @@ public class Settings: NSManagedObject {
     static func setSound(_ on: Bool) {
         let settings = Settings.getSettings()
         
-        settings.soundOn = true
+        settings.soundOn = on
         
         do {
             try settings.managedObjectContext?.save()

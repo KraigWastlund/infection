@@ -55,7 +55,7 @@ class GameViewController: UIViewController {
     
     func openSettingsController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let settingsVC = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
+        let settingsVC = storyboard.instantiateViewController(withIdentifier: "SettingsViewController2") as! SettingsViewController
         
         self.present(settingsVC, animated: true, completion: nil)
     }
