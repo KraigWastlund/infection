@@ -16,48 +16,28 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         self.setupMultipeerEventHandlers()
         
         if let scene = GKScene(fileNamed: "MainScene") {
             
             // Get the SKScene from the loaded GKScene
             if let sceneNode = scene.rootNode as! MainScene? {
-                
-                // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
-                
-                player.position = CGPoint(x: 10, y: 10)
-                sceneNode.parentViewController = self
-                
-//                sceneNode.addChild(player)
-                
-                
-                // Present the scene
                 if let view = self.view as! SKView? {
                     view.presentScene(sceneNode)
-                    
                     view.ignoresSiblingOrder = true
                 }
             }
         }
     }
-
+    
+    override func preferredScreenEdgesDeferringSystemGestures() -> UIRectEdge {
+        return [ .bottom, .top ]
+    }
+    
     override var shouldAutorotate: Bool {
         return true
-    }
-
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return .allButUpsideDown
-        } else {
-            return .all
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
     }
 
     override var prefersStatusBarHidden: Bool {
