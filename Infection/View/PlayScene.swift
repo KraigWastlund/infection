@@ -26,6 +26,7 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
     fileprivate var playerSize: Double!
     fileprivate var cameraSet = false
     fileprivate var level: Level!
+    fileprivate var initiallyInfectedPlayer: PlayerNode!
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -61,6 +62,7 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         let info = PlayerInfo(uuid: UUID(), name: UIDevice.current.name, position: CGPoint(x: myXPos, y: myYPos))
         player = PlayerNode(size: CGSize(width: self.playerSize, height: self.playerSize), playerInfo: info)
         player.position = player.playerInfo.position
+        player.previousPostition = player.playerInfo.position
         
         self.addChild(player)
         self.backgroundColor = .lightGray
@@ -71,11 +73,25 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
             playerInfo.position = CGPoint(x: xPos, y: yPos)
             let player = PlayerNode(size: CGSize(width: self.playerSize, height: self.playerSize), playerInfo: playerInfo)
             player.position = playerInfo.position
+            player.previousPostition = player.position
             
             self.players.append(player)
             self.addChild(player)
         }
         
+        let centerPointOfScreen = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        var infDist = distance(between: centerPointOfScreen, and: player.position)
+        var infected = self.player
+        for p in self.players {
+            let thisPDist = distance(between: centerPointOfScreen, and: p.position)
+            if thisPDist > infDist {
+                infDist = thisPDist
+                infected = p
+            }
+        }
+        self.initiallyInfectedPlayer = infected
+        infected?.isInfected = true
+                
         self.setupMultipeerEventHandlers()
     }
 
@@ -157,6 +173,25 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         if (player.physicsBody?.velocity.dx)! > CGFloat(0) {
             player.xScale = 1.0
         }
+        for p in self.players {
+            if p.previousPostition.x > p.position.x {
+                p.xScale = -1.0
+            }
+            if p.previousPostition.x < p.position.x {
+                p.xScale = 1.0
+            }
+        }
+        
+        
+        if player.isInfected {
+            player.yScale = -1.0
+        } else {
+            for p in self.players {
+                if p.isInfected {
+                    p.yScale = -1.0
+                }
+            }
+        }
         
         updateCounter += 1
         if updateCounter > 10 {
@@ -179,6 +214,13 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
                 camera!.run(SKAction.sequence( [ delay, group ]), completion: {
                     self.cameraSet = true
                 })
+            }
+        }
+
+        player.previousPostition = player.position
+        for p in self.players {
+            if p.isInfected {
+                p.previousPostition = player.position
             }
         }
     }
@@ -206,19 +248,27 @@ extension PlayScene {
 
 extension PlayScene {
     @objc func swipedRight(_ sender:UISwipeGestureRecognizer){
-        player.physicsBody?.applyForce(CGVector(dx: PLAYER_SPEED,dy: 0))
+        if cameraSet {
+            player.physicsBody?.applyForce(CGVector(dx: PLAYER_SPEED,dy: 0))
+        }
     }
 
     @objc func swipedLeft(_ sender:UISwipeGestureRecognizer){
-        player.physicsBody?.applyForce(CGVector(dx: -PLAYER_SPEED,dy: 0))
+        if cameraSet {
+            player.physicsBody?.applyForce(CGVector(dx: -PLAYER_SPEED,dy: 0))
+        }
     }
 
     @objc func swipedUp(_ sender:UISwipeGestureRecognizer){
-        player.physicsBody?.applyForce(CGVector(dx: 0,dy: PLAYER_SPEED))
+        if cameraSet {
+            player.physicsBody?.applyForce(CGVector(dx: 0,dy: PLAYER_SPEED))
+        }
     }
 
     @objc func swipedDown(_ sender:UISwipeGestureRecognizer){
-        player.physicsBody?.applyForce(CGVector(dx: 0,dy: -PLAYER_SPEED))
+        if cameraSet {
+            player.physicsBody?.applyForce(CGVector(dx: 0,dy: -PLAYER_SPEED))
+        }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -227,7 +277,6 @@ extension PlayScene {
         switch contactMask {
         case BitMask.player.rawValue | BitMask.wall.rawValue:
             break
-//            player.velocity = CGVector(dx: 0, dy: 0)
         case BitMask.bullet.rawValue | BitMask.wall.rawValue:
             let bullet = contact.bodyB.node
             bullet?.removeFromParent()
@@ -238,6 +287,18 @@ extension PlayScene {
                 let bullet = contact.bodyB.node
                 bullet?.removeFromParent()
             }
+        case BitMask.player.rawValue | BitMask.player.rawValue:
+            // if one player is a zombie and other is not: make other zombie
+            let playerOne = contact.bodyA.node as! PlayerNode
+            let playerTwo = contact.bodyB.node as! PlayerNode
+            if playerOne == self.player || playerTwo == self.player {
+                if playerOne.isInfected == true && !playerTwo.isInfected {
+                    playerTwo.isInfected = true
+                } else if !playerOne.isInfected == true && playerTwo.isInfected {
+                    playerOne.isInfected = true
+                }
+            }
+            break
         default:
             break
         }
