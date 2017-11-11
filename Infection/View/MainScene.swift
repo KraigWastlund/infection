@@ -17,7 +17,6 @@ class MainScene: SKScene {
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
-        
         // Get label node from scene and store it for use later
         self.titleLabel = self.childNode(withName: "//titleLabel") as? SKLabelNode
         self.startLabel = self.childNode(withName: "//startLabel") as? SKLabelNode
@@ -33,7 +32,6 @@ class MainScene: SKScene {
             sButton.run(SKAction.fadeIn(withDuration: 3.0))
         }
     }
-    
     
     func touchDown(atPoint pos : CGPoint) {
         if self.startButton.contains(pos) {
