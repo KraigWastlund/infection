@@ -76,6 +76,40 @@ class Level {
         carveWalls(xPos: 0, yPos: 0)
     }
     
+    static func levelToString(level: Level) -> String {
+        var levelString = ""
+        levelString += "\(level.width)-\(level.height)"
+        for cell in level.cells {
+            levelString += "-\(cell.xPos).\(cell.yPos).\(NSNumber(value: cell.hasLeftWall).intValue)\(NSNumber(value: cell.hasRightWall).intValue)\(NSNumber(value: cell.hasTopWall).intValue)\(NSNumber(value: cell.hasBottomWall).intValue)"
+        }
+        return levelString
+    }
+    
+    static func stringToLevel(levelString: String) -> Level {
+        var separatedByDash = levelString.components(separatedBy: "-")
+        let width = Int(separatedByDash[0])!
+        separatedByDash.remove(at: 0)
+        let height = Int(separatedByDash[0])!
+        separatedByDash.remove(at: 0)
+        
+        let level = Level(width: width, height: height)
+        level.cells.removeAll()
+        
+        for stringValue in separatedByDash {
+            var separatedByPeriod = stringValue.components(separatedBy: ".")
+            let xPos = Int(separatedByPeriod[0])!
+            let yPos = Int(separatedByPeriod[1])!
+            let characters = Array(String(separatedByPeriod[2]))
+            let leftWall = Bool(truncating: NSNumber(value: Int(String(characters[0]))!))
+            let rightWall = Bool(truncating: NSNumber(value: Int(String(characters[0]))!))
+            let topWall = Bool(truncating: NSNumber(value: Int(String(characters[0]))!))
+            let bottomWall = Bool(truncating: NSNumber(value: Int(String(characters[0]))!))
+            let cell = Cell(xPos: xPos, yPos: yPos, leftWall: leftWall, rightWall: rightWall, topWall: topWall, bottomWall: bottomWall)
+            level.cells.append(cell)
+        }
+        return level
+    }
+    
     func renderLevel(mapSize: CGSize) {
         let widthOfCell = mapSize.width / CGFloat(width)
         let heightOfCell = mapSize.height / CGFloat(height)

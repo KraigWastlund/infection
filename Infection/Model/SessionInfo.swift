@@ -10,21 +10,21 @@ import UIKit
 
 class SessionInfo: MPCSerializable {
     var uuid: UUID!
-    var level: Level!
+    var levelString: String!
     
-    init(uuid: UUID!, level: Level) {
+    init(uuid: UUID!, levelString: String) {
         self.uuid = uuid
-        self.level = level
+        self.levelString = levelString
     }
     
     var mpcSerialized: Data {
-        let dictionary = ["uuid": self.uuid, "level": self.level] as [String : Any]
+        let dictionary = ["uuid": self.uuid, "levelString": self.levelString] as [String : Any]
         return NSKeyedArchiver.archivedData(withRootObject: dictionary)
     }
     
     required init(mpcSerialized: Data) {
         let dict = NSKeyedUnarchiver.unarchiveObject(with: mpcSerialized) as! [String: Any]
         self.uuid = dict["uuid"]! as! UUID
-        self.level = dict["level"]! as! Level
+        self.levelString = dict["levelString"]! as! String
     }
 }
