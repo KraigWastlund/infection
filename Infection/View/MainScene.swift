@@ -113,16 +113,7 @@ class MainScene: SKScene {
             let dict = object as! [String: NSData]
             let sessionInfo = SessionInfo(mpcSerialized: dict["level"]! as Data)
             
-//            let level = Level.stringToLevel(levelString: sessionInfo.levelString)
-//            level.renderLevel(mapSize: self.size)
-            
-            let height = 10
-            let screenHeight = Int(self.size.height)
-            let screenWidth = Int(self.size.width)
-            let cellDimm = screenHeight / height
-            let width = screenWidth / cellDimm
-            
-            let level = Level(width: width, height: height)
+            let level = Level.stringToLevel(levelString: sessionInfo.levelString)
             level.renderLevel(mapSize: self.size)
             
             let playScene = PlayScene(level: level, size: self.size)
