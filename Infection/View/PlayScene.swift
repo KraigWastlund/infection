@@ -18,8 +18,8 @@ enum BitMask: UInt32 {
 class PlayScene: SKScene, SKPhysicsContactDelegate {
     
     private var graphs = [String : GKGraph]()
-    private let PLAYER_SPEED = CGFloat(2000)
-    private var lastUpdateTime : TimeInterval = 0
+    private let PLAYER_SPEED = CGFloat(1000)
+    private var initialLoadTime: TimeInterval?
     private var player: PlayerNode!
     fileprivate var playerSize: Double!
     fileprivate var cameraSet = false
@@ -48,19 +48,6 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         player.position = player.playerInfo.position
         
         self.addChild(player)
-        
-        let cameraNode = SKCameraNode()
-        cameraNode.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        self.addChild(cameraNode)
-        self.camera = cameraNode
-        let delay = SKAction.wait(forDuration: 0.5)
-        let group = SKAction.group([SKAction.scale(to: 0.3, duration: 1.0), SKAction.move(to: player.position, duration: 1.0)])
-        camera!.run(SKAction.sequence( [ delay, group ]))
-        perform(#selector(setCamera), with: nil, afterDelay: 2.0)
-    }
-    
-    @objc func setCamera() {
-        cameraSet = true
     }
     
     override func didMove(to view: SKView) {
@@ -130,8 +117,26 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
+        if initialLoadTime == nil {
+            initialLoadTime = currentTime
+        }
+        
         if cameraSet {
             camera!.run(SKAction.move(to: player.position, duration: 0.1))
+        } else {
+            guard let time = initialLoadTime else { return }
+            
+            if self.camera == nil && currentTime - time > 2 {
+                let cameraNode = SKCameraNode()
+                cameraNode.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+                self.addChild(cameraNode)
+                self.camera = cameraNode
+                let delay = SKAction.wait(forDuration: 0.25)
+                let group = SKAction.group([SKAction.scale(to: 0.35, duration: 1.0), SKAction.move(to: player.position, duration: 1.0)])
+                camera!.run(SKAction.sequence( [ delay, group ]), completion: {
+                    self.cameraSet = true
+                })
+            }
         }
     }
 }
