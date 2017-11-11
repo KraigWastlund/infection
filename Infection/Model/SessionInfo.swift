@@ -11,14 +11,16 @@ import UIKit
 class SessionInfo: MPCSerializable {
     var uuid: UUID!
     var levelString: String!
+    var infectedUUID: UUID!
     
-    init(uuid: UUID!, levelString: String) {
+    init(uuid: UUID!, levelString: String, infectedUUID: UUID) {
         self.uuid = uuid
         self.levelString = levelString
+        self.infectedUUID = infectedUUID
     }
     
     var mpcSerialized: Data {
-        let dictionary = ["uuid": self.uuid, "levelString": self.levelString] as [String : Any]
+        let dictionary = ["uuid": self.uuid, "levelString": self.levelString, "infectedUUID": self.infectedUUID] as [String : Any]
         return NSKeyedArchiver.archivedData(withRootObject: dictionary)
     }
     
@@ -26,5 +28,6 @@ class SessionInfo: MPCSerializable {
         let dict = NSKeyedUnarchiver.unarchiveObject(with: mpcSerialized) as! [String: Any]
         self.uuid = dict["uuid"]! as! UUID
         self.levelString = dict["levelString"]! as! String
+        self.infectedUUID = dict["infectedUUID"]! as! UUID
     }
 }

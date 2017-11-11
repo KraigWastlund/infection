@@ -19,6 +19,8 @@ class MainScene: SKScene {
     private var settingsLabel: SKLabelNode!
     private var settingsButton: SKSpriteNode!
     
+    private var infectedUUID: UUID!
+    
     override func sceneDidLoad() {
         super.sceneDidLoad()
         
@@ -96,9 +98,11 @@ class MainScene: SKScene {
         let level = Level(width: width, height: height)
         level.renderLevel(mapSize: self.size)
         
-        ConnectionManager.sendEvent(.startGame, object: ["level": SessionInfo(uuid: UUID(), levelString: Level.levelToString(level: level))])
+        let infectedUUID = ConnectionManager.allPlayers.first!.uuid!
         
-        let playScene = PlayScene(level: level, size: self.size)
+        ConnectionManager.sendEvent(.startGame, object: ["level": SessionInfo(uuid: UUID(), levelString: Level.levelToString(level: level), infectedUUID: infectedUUID)])
+        
+        let playScene = PlayScene(level: level, size: self.size, infectedUUID: infectedUUID)
         playScene.view?.showsFPS = true
         playScene.view?.showsNodeCount = true
         self.view?.presentScene(playScene)
@@ -116,7 +120,7 @@ class MainScene: SKScene {
             let level = Level.stringToLevel(levelString: sessionInfo.levelString)
             level.renderLevel(mapSize: self.size)
             
-            let playScene = PlayScene(level: level, size: self.size)
+            let playScene = PlayScene(level: level, size: self.size, infectedUUID: sessionInfo.infectedUUID)
             playScene.view?.showsFPS = true
             playScene.view?.showsNodeCount = true
             self.view?.presentScene(playScene)

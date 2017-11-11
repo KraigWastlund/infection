@@ -26,14 +26,16 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
     fileprivate var playerSize: Double!
     fileprivate var cameraSet = false
     fileprivate var level: Level!
+    fileprivate var initiallyInfectedUUID: UUID!
     
     override init(size: CGSize) {
         super.init(size: size)
     }
     
-    convenience init(level: Level, size: CGSize) {
+    convenience init(level: Level, size: CGSize, infectedUUID: UUID) {
         self.init(size: size)
         self.level = level
+        self.initiallyInfectedUUID = infectedUUID
         
         for wall in level.walls {
             self.addChild(wall)
@@ -54,7 +56,7 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         
         self.playerSize = Double(cellDimm) * 0.65
         
-        let info = PlayerInfo(uuid: UUID(), name: UIDevice.current.name, position: CGPoint(x: 50, y: 50))
+        let info = PlayerInfo(name: UIDevice.current.name, position: CGPoint(x: 50, y: 50))
         player = PlayerNode(size: CGSize(width: self.playerSize, height: self.playerSize), playerInfo: info)
         player.position = player.playerInfo.position
         
@@ -65,10 +67,15 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
             playerInfo.position = CGPoint(x: 100, y: 100)
             let player = PlayerNode(size: CGSize(width: self.playerSize, height: self.playerSize), playerInfo: playerInfo)
             player.position = playerInfo.position
+            
+            if player.playerInfo.uuid == initiallyInfectedUUID {
+                player.isInfected = true
+            }
+            
             self.players.append(player)
             self.addChild(player)
         }
-        
+                
         self.setupMultipeerEventHandlers()
     }
     
@@ -148,6 +155,15 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         }
         if (player.physicsBody?.velocity.dx)! > CGFloat(0) {
             player.xScale = 1.0
+        }
+        if player.isInfected {
+            player.yScale = -1.0
+        } else {
+            for p in self.players {
+                if p.isInfected {
+                    p.yScale = -1.0
+                }
+            }
         }
         
         updateCounter += 1
@@ -230,6 +246,18 @@ extension PlayScene {
                 let bullet = contact.bodyB.node
                 bullet?.removeFromParent()
             }
+        case BitMask.player.rawValue | BitMask.player.rawValue:
+            // if one player is a zombie and other is not: make other zombie
+            let playerOne = contact.bodyA.node as! PlayerNode
+            let playerTwo = contact.bodyB.node as! PlayerNode
+            if playerOne == self.player || playerTwo == self.player {
+                if playerOne.isInfected == true && !playerTwo.isInfected {
+                    playerTwo.isInfected = true
+                } else if !playerOne.isInfected == true && playerTwo.isInfected {
+                    playerOne.isInfected = true
+                }
+            }
+            break
         default:
             break
         }
