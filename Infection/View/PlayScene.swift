@@ -50,11 +50,15 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         
         let height = 10
         let screenHeight = Int(self.size.height)
+        let screenWidth = Int(self.size.width)
         let cellDimm = screenHeight / height
         
         self.playerSize = Double(cellDimm) * 0.65
         
-        let info = PlayerInfo(uuid: UUID(), name: UIDevice.current.name, position: CGPoint(x: 50, y: 50))
+        let myXPos = CGFloat( Float(arc4random()) / Float(UINT32_MAX)) * CGFloat(screenHeight / 2)
+        let myYPos = CGFloat( Float(arc4random()) / Float(UINT32_MAX)) * CGFloat(screenWidth / 2)
+        
+        let info = PlayerInfo(uuid: UUID(), name: UIDevice.current.name, position: CGPoint(x: myXPos, y: myYPos))
         player = PlayerNode(size: CGSize(width: self.playerSize, height: self.playerSize), playerInfo: info)
         player.position = player.playerInfo.position
         
@@ -62,15 +66,19 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         self.backgroundColor = .lightGray
         
         for playerInfo in ConnectionManager.otherPlayers {
-            playerInfo.position = CGPoint(x: 100, y: 100)
+            let xPos = CGFloat( Float(arc4random()) / Float(UINT32_MAX)) * CGFloat(screenHeight / 2)
+            let yPos = CGFloat( Float(arc4random()) / Float(UINT32_MAX)) * CGFloat(screenWidth / 2)
+            playerInfo.position = CGPoint(x: xPos, y: yPos)
             let player = PlayerNode(size: CGSize(width: self.playerSize, height: self.playerSize), playerInfo: playerInfo)
             player.position = playerInfo.position
+            
             self.players.append(player)
             self.addChild(player)
         }
         
         self.setupMultipeerEventHandlers()
     }
+
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
