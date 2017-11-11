@@ -17,7 +17,6 @@ class MainScene: SKScene {
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
-        
         // Get label node from scene and store it for use later
         self.titleLabel = self.childNode(withName: "//titleLabel") as? SKLabelNode
         self.startLabel = self.childNode(withName: "//startLabel") as? SKLabelNode
