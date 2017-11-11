@@ -102,7 +102,6 @@ public class Settings: NSManagedObject {
     
     
     // Object
-    
     static func getSettings() -> Settings {
         let settings: [Settings]
         let request: NSFetchRequest<Settings> = NSFetchRequest(entityName: "Settings")
