@@ -68,9 +68,7 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         self.backgroundColor = .lightGray
         
         for playerInfo in ConnectionManager.otherPlayers {
-            let xPos = CGFloat( Float(arc4random()) / Float(UINT32_MAX)) * CGFloat(screenHeight / 2)
-            let yPos = CGFloat( Float(arc4random()) / Float(UINT32_MAX)) * CGFloat(screenWidth / 2)
-            playerInfo.position = CGPoint(x: xPos, y: yPos)
+            playerInfo.position = CGPoint(x: 50, y: 50)
             let player = PlayerNode(size: CGSize(width: self.playerSize, height: self.playerSize), playerInfo: playerInfo)
             player.position = playerInfo.position
             player.previousPostition = player.position
