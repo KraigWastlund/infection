@@ -42,6 +42,7 @@ class MainScene: SKScene {
             settingButton.alpha = 0.0
             settingButton.run(SKAction.fadeIn(withDuration: 3.0))
         }
+        self.setupMultipeerEventHandlers()
     }
     
     func touchDown(atPoint pos : CGPoint) {
@@ -86,7 +87,18 @@ class MainScene: SKScene {
     }
     
     private func startButtonWasPressed() {
-        let playScene = PlayScene(size: self.size)
+        let height = 10
+        let screenHeight = Int(self.size.height)
+        let screenWidth = Int(self.size.width)
+        let cellDimm = screenHeight / height
+        let width = screenWidth / cellDimm
+        
+        let level = Level(width: width, height: height)
+        level.renderLevel(mapSize: self.size)
+        
+        ConnectionManager.sendEvent(.startGame, object: ["level": SessionInfo(uuid: UUID(), levelString: Level.levelToString(level: level))])
+        
+        let playScene = PlayScene(level: level, size: self.size)
         playScene.view?.showsFPS = true
         playScene.view?.showsNodeCount = true
         self.view?.presentScene(playScene)
@@ -94,5 +106,29 @@ class MainScene: SKScene {
     
     private func settingsButtonPressed() {
         self.parentViewController!.openSettingsController()
+    }
+    
+    fileprivate func setupMultipeerEventHandlers() {
+        ConnectionManager.onEvent(.startGame) { [unowned self] peer, object in
+            let dict = object as! [String: NSData]
+            let sessionInfo = SessionInfo(mpcSerialized: dict["level"]! as Data)
+            
+//            let level = Level.stringToLevel(levelString: sessionInfo.levelString)
+//            level.renderLevel(mapSize: self.size)
+            
+            let height = 10
+            let screenHeight = Int(self.size.height)
+            let screenWidth = Int(self.size.width)
+            let cellDimm = screenHeight / height
+            let width = screenWidth / cellDimm
+            
+            let level = Level(width: width, height: height)
+            level.renderLevel(mapSize: self.size)
+            
+            let playScene = PlayScene(level: level, size: self.size)
+            playScene.view?.showsFPS = true
+            playScene.view?.showsNodeCount = true
+            self.view?.presentScene(playScene)
+        }
     }
 }

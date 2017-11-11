@@ -20,9 +20,29 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
     private var graphs = [String : GKGraph]()
     private let PLAYER_SPEED = CGFloat(1000)
     private var initialLoadTime: TimeInterval?
+    private var players: [PlayerNode] = []
     private var player: PlayerNode!
+    private var updateCounter = 0
     fileprivate var playerSize: Double!
     fileprivate var cameraSet = false
+    fileprivate var level: Level!
+    
+    override init(size: CGSize) {
+        super.init(size: size)
+    }
+    
+    convenience init(level: Level, size: CGSize) {
+        self.init(size: size)
+        self.level = level
+        
+        for wall in level.walls {
+            self.addChild(wall)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
@@ -30,25 +50,26 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         
         let height = 10
         let screenHeight = Int(self.size.height)
-        let screenWidth = Int(self.size.width)
         let cellDimm = screenHeight / height
-        let width = screenWidth / cellDimm
         
         self.playerSize = Double(cellDimm) * 0.65
         
-        let level = Level(width: width, height: height)
-        level.renderLevel(mapSize: self.size)
-        
-        for wall in level.walls {
-            self.addChild(wall)
-        }   
-        
-        let info = PlayerInfo(uuid: UUID(), name: "bob", position: CGPoint(x: 50, y: 50), velocity: CGVector(dx: 0, dy: 0))
+        let info = PlayerInfo(uuid: UUID(), name: UIDevice.current.name, position: CGPoint(x: 50, y: 50))
         player = PlayerNode(size: CGSize(width: self.playerSize, height: self.playerSize), playerInfo: info)
         player.position = player.playerInfo.position
         
         self.addChild(player)
         self.backgroundColor = .lightGray
+        
+        for playerInfo in ConnectionManager.otherPlayers {
+            playerInfo.position = CGPoint(x: 100, y: 100)
+            let player = PlayerNode(size: CGSize(width: self.playerSize, height: self.playerSize), playerInfo: playerInfo)
+            player.position = playerInfo.position
+            self.players.append(player)
+            self.addChild(player)
+        }
+        
+        self.setupMultipeerEventHandlers()
     }
     
     override func didMove(to view: SKView) {
@@ -128,6 +149,10 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         if (player.physicsBody?.velocity.dx)! > CGFloat(0) {
             player.xScale = 1.0
         }
+        if updateCounter > 10 {
+            self.player.playerInfo.position = self.player.position
+            ConnectionManager.sendEvent(.playerInfo, object: ["playerInfo": self.player.playerInfo])
+        }
         
         if cameraSet {
             camera!.run(SKAction.move(to: player.position, duration: 0.1))
@@ -191,7 +216,8 @@ extension PlayScene {
         
         switch contactMask {
         case BitMask.player.rawValue | BitMask.wall.rawValue:
-            player.playerInfo.velocity = CGVector(dx: 0, dy: 0)
+            break
+//            player.velocity = CGVector(dx: 0, dy: 0)
         case BitMask.bullet.rawValue | BitMask.wall.rawValue:
             let bullet = contact.bodyB.node
             bullet?.removeFromParent()
@@ -204,6 +230,44 @@ extension PlayScene {
             }
         default:
             break
+        }
+    }
+}
+
+// MARK: Multipeer
+
+extension PlayScene {
+    
+    fileprivate func setupMultipeerEventHandlers() {
+        ConnectionManager.onEvent(.startGame) { [unowned self] peer, object in
+            let dict = object as! [String: NSData]
+//            let sessionInfo = SessionInfo(mpcSerialized: dict["level"]! as Data)
+//            print(sessionInfo.levelString)
+        }
+        
+        ConnectionManager.onEvent(.playerInfo) { [unowned self] peer, object in
+            let dict = object as! [String: NSData]
+            let playerInfo = PlayerInfo(mpcSerialized: dict["playerInfo"]! as Data)
+            DispatchQueue.main.async {
+                let filteredPlayers = self.players.filter({ $0.playerInfo.name == playerInfo.name })
+                if !filteredPlayers.isEmpty, let filteredPlayer = filteredPlayers.first {
+                    filteredPlayer.position = playerInfo.position
+                    SKAction.move(to: playerInfo.position, duration: 2)
+                } else {
+                    self.player.position = playerInfo.position
+                    SKAction.move(to: playerInfo.position, duration: 2)
+                }
+            }
+        }
+        
+        ConnectionManager.onEvent(.actionInfo) { [unowned self] peer, object in
+            let dict = object as! [String: NSData]
+            print(dict)
+        }
+        
+        ConnectionManager.onEvent(.endGame) { [unowned self] peer, object in
+            let dict = object as! [String: NSData]
+            print(dict)
         }
     }
 }
