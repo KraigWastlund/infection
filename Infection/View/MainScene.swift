@@ -44,7 +44,6 @@ class MainScene: SKScene {
         }
     }
     
-    
     func touchDown(atPoint pos : CGPoint) {
         if self.startButton.contains(pos) {
             self.startButton.alpha = 0.5

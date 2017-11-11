@@ -10,7 +10,7 @@ import SpriteKit
 
 class BulletNode: SKSpriteNode {
     convenience init(width: CGFloat, height: CGFloat) {
-        let texture = SKTexture(imageNamed: "Bullet")
+        let texture = SKTexture(imageNamed: "ninja-star")
         
         self.init(texture: texture, color: UIColor.white, size: CGSize(width: width, height: height))
         self.zPosition = 5
@@ -19,8 +19,9 @@ class BulletNode: SKSpriteNode {
         self.physicsBody?.collisionBitMask = BitMask.wall.rawValue | BitMask.player.rawValue
         self.physicsBody?.contactTestBitMask = BitMask.wall.rawValue | BitMask.player.rawValue
         self.physicsBody?.isDynamic = true
-        self.physicsBody?.allowsRotation = false
         self.physicsBody?.affectedByGravity = false
         self.name = "Bullet"
+        self.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat.pi * 2, duration: 1.0)))
     }
 }
+
