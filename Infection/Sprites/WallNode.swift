@@ -17,9 +17,9 @@ class WallNode: SKSpriteNode {
     convenience init(width: CGFloat, height: CGFloat, orientation: WallOrientation) {
         var texture: SKTexture!
         if orientation == .horizontal {
-            texture = SKTexture(imageNamed: "wall_h")
+            texture = SKTexture(imageNamed: "wall")
         } else {
-            texture = SKTexture(imageNamed: "wall_v")
+            texture = SKTexture(imageNamed: "wall")
         }
         assert(texture != nil, "we failed?!")
         

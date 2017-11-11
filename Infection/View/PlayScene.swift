@@ -122,6 +122,13 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
             initialLoadTime = currentTime
         }
         
+        if (player.physicsBody?.velocity.dx)! < CGFloat(0) {
+            player.xScale = -1.0
+        }
+        if (player.physicsBody?.velocity.dx)! > CGFloat(0) {
+            player.xScale = 1.0
+        }
+        
         if cameraSet {
             camera!.run(SKAction.move(to: player.position, duration: 0.1))
         } else {
