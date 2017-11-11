@@ -59,6 +59,7 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         player.position = player.playerInfo.position
         
         self.addChild(player)
+        self.backgroundColor = .lightGray
         
         for playerInfo in ConnectionManager.otherPlayers {
             playerInfo.position = CGPoint(x: 100, y: 100)
@@ -73,7 +74,7 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        self.view?.showsPhysics = true
+        self.view?.showsPhysics = false
         
         let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight))
         swipeRight.direction = .right
@@ -142,8 +143,14 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
             initialLoadTime = currentTime
         }
         
-        updateCounter += 1
+        if (player.physicsBody?.velocity.dx)! < CGFloat(0) {
+            player.xScale = -1.0
+        }
+        if (player.physicsBody?.velocity.dx)! > CGFloat(0) {
+            player.xScale = 1.0
+        }
         
+        updateCounter += 1
         if updateCounter > 10 {
             self.player.playerInfo.position = self.player.position
             ConnectionManager.sendEvent(.playerInfo, object: ["playerInfo": self.player.playerInfo])
