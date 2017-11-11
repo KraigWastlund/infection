@@ -6,6 +6,7 @@ target 'Infection' do
   use_frameworks!
 
   # Pods for Infection
+  pod 'PeerKit'
 
   target 'InfectionTests' do
     inherit! :search_paths
