@@ -149,6 +149,8 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         if (player.physicsBody?.velocity.dx)! > CGFloat(0) {
             player.xScale = 1.0
         }
+        
+        updateCounter += 1
         if updateCounter > 10 {
             self.player.playerInfo.position = self.player.position
             ConnectionManager.sendEvent(.playerInfo, object: ["playerInfo": self.player.playerInfo])
