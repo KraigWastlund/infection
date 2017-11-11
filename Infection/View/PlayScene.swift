@@ -25,7 +25,7 @@ struct PhysicsCategory {
 class PlayScene: SKScene, SKPhysicsContactDelegate {
     
     private var graphs = [String : GKGraph]()
-    private let PLAYER_SPEED = CGFloat(2000)
+    private let PLAYER_SPEED = CGFloat(500)
     private var lastUpdateTime : TimeInterval = 0
     private var player: PlayerNode!
     
@@ -156,7 +156,7 @@ extension PlayScene {
         
         switch contactMask {
         case BitMask.player.rawValue | BitMask.wall.rawValue:
-            player.playerInfo.velocity = CGVector(dx: 0, dy: 0)
+            player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         default:
             break
         }

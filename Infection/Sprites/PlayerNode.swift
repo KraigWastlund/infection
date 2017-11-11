@@ -18,7 +18,7 @@ class PlayerNode: SKSpriteNode {
         self.playerInfo = playerInfo
         self.size = size
         self.zPosition = 5
-        self.physicsBody = SKPhysicsBody(rectangleOf: size)
+        self.physicsBody = SKPhysicsBody(circleOfRadius: size.width/2)
         self.physicsBody?.categoryBitMask = BitMask.player.rawValue
         self.physicsBody?.collisionBitMask = BitMask.wall.rawValue | BitMask.bullet.rawValue
         self.physicsBody?.contactTestBitMask = BitMask.wall.rawValue | BitMask.bullet.rawValue
