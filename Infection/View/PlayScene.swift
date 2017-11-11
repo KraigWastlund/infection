@@ -63,17 +63,26 @@ class PlayScene: SKScene, SKPhysicsContactDelegate {
         self.backgroundColor = .lightGray
         
         for playerInfo in ConnectionManager.otherPlayers {
-            playerInfo.position = CGPoint(x: 100, y: 100)
+            //playerInfo.position = CGPoint(x: 100, y: 100)
             let player = PlayerNode(size: CGSize(width: self.playerSize, height: self.playerSize), playerInfo: playerInfo)
             player.position = playerInfo.position
-            
-//            if player.playerInfo.uuid == initiallyInfectedUUID {
-//                player.isInfected = true
-//            }
             
             self.players.append(player)
             self.addChild(player)
         }
+        
+        let centerPointOfScreen = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        var infDist = distance(between: centerPointOfScreen, and: player.position)
+        var infected = self.player
+        for p in self.players {
+            let thisPDist = distance(between: centerPointOfScreen, and: p.position)
+            if thisPDist > infDist {
+                infDist = thisPDist
+                infected = p
+            }
+        }
+        self.initiallyInfectedPlayer = infected
+        infected?.isInfected = true
                 
         self.setupMultipeerEventHandlers()
     }
