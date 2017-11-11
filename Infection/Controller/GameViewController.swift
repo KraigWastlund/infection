@@ -24,6 +24,7 @@ class GameViewController: UIViewController {
             // Get the SKScene from the loaded GKScene
             if let sceneNode = scene.rootNode as! MainScene? {
                 sceneNode.scaleMode = .aspectFill
+                sceneNode.parentViewController = self
                 if let view = self.view as! SKView? {
                     view.presentScene(sceneNode)
                     view.ignoresSiblingOrder = true
