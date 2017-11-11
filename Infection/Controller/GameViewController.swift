@@ -28,6 +28,7 @@ class GameViewController: UIViewController {
                 sceneNode.scaleMode = .aspectFill
                 
                 player.position = CGPoint(x: 10, y: 10)
+                sceneNode.parentViewController = self
                 
 //                sceneNode.addChild(player)
                 
@@ -69,6 +70,13 @@ class GameViewController: UIViewController {
         ConnectionManager.sendEvent(.playerInfo, object: ["playerInfo": PlayerInfo(uuid: UUID() ,name: "hello! :)", position: self.player.position, velocity: CGVector(dx: 0, dy: 0))])
         ConnectionManager.sendEvent(.actionInfo, object: ["actionInfo": ActionInfo(uuid: UUID(), position: CGPoint(x: 10, y: 10), velocity: CGVector(dx: 0, dy: 0))])
         ConnectionManager.sendEvent(.endGame)
+    }
+    
+    func openSettingsController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let settingsVC = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
+        
+        self.present(settingsVC, animated: true, completion: nil)
     }
     
     // MARK: Multipeer
